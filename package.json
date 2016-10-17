@@ -4,6 +4,10 @@
   "description": "API Implementation for MM",
   "main": "src/app.js",
   "scripts": {
+    "clean": "rimraf dist",
+    "lambdazip": "node src/util/aws-lambda-zip.js",
+    "yamlmerge": "node src/util/swagger-yaml-merge",
+    "prepdeploy": "npm run clean && npm run lambdazip && npm run yamlmerge",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,5 +30,17 @@
     "glob": "^7.1.1",
     "lodash": "^4.16.4",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "adm-zip": "^0.4.7",
+    "archiver": "^1.1.0",
+    "json-refs": "^2.1.6",
+    "rimraf": "^2.5.2",
+    "yaml-js": "^0.1.4"
+  },
+  "config": {
+    "AWS_S3_BUCKET": "mm-lamda-deployments",
+    "AWS_CF_STACK_NAME": "",
+    "AWS_REGION": ""
   }
 }

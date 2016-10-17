@@ -1,12 +1,17 @@
 type: object
 properties:
   userid:
-    type: string
+    type:
+      string
   firstname:
-    type: string
+    type:
+      string
   lastname:
-    type: string
+    type:
+      string
   fullname:
-    type: string
+    type:
+      string
   email:
-    type: string
+    type:
+      string
