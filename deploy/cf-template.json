@@ -2,7 +2,7 @@
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "AWS Serverless Express.",
   "Parameters": {
-    "AwsServerlessExpressS3Bucket": {
+    "MMServerlessAppBucket": {
       "Type": "String",
       "Description": "The S3 bucket in which the lambda function code is stored. Bucket names are region-unique, so you must change this."
     },
@@ -14,9 +14,9 @@
     },
     "ApiGatewaySwaggerS3Key": {
       "Type": "String",
-      "AllowedPattern": ".*\\.yaml",
+      "AllowedPattern": ".*\\.json",
       "Description": "The S3 object for the swagger definition of the API Gateway API.",
-      "Default": "swagger2.yaml"
+      "Default": "swagger2.json"
     }
   },
 
@@ -27,7 +27,7 @@
         "Description": "AWS Serverless Express API",
         "BodyS3Location": {
           "Bucket": {
-            "Ref": "AwsServerlessExpressS3Bucket"
+            "Ref": "MMServerlessAppBucket"
           },
           "Key": {
             "Ref": "ApiGatewaySwaggerS3Key"
@@ -42,7 +42,7 @@
         "RestApiId": {
           "Ref": "ApiGatewayApi"
         },
-        "StageName": "prod"
+        "StageName": "v1"
       }
     },
 
@@ -103,14 +103,14 @@
       "Properties": {
         "Code": {
           "S3Bucket": {
-            "Ref": "AwsServerlessExpressS3Bucket"
+            "Ref": "MMServerlessAppBucket"
           },
           "S3Key": {
             "Ref": "LambdaFunctionS3Key"
           }
         },
         "FunctionName": "AwsServerlessExpressFunction",
-        "Handler": "lambda.handler",
+        "Handler": "src/lambda.handler",
         "MemorySize": 128,
         "Role": {
           "Fn::GetAtt": ["LambdaExecutionRole", "Arn"]
@@ -143,7 +143,7 @@
           "Ref": "AWS::Region"
         }, "#/apis/", {
           "Ref": "ApiGatewayApi"
-        }, "/stages/prod"]]
+        }, "/stages/v1"]]
       }
     },
     "ApiUrl": {
@@ -153,7 +153,7 @@
           "Ref": "ApiGatewayApi"
         }, ".execute-api.", {
           "Ref": "AWS::Region"
-        }, ".amazonaws.com/prod/"]]
+        }, ".amazonaws.com/v1/"]]
       }
     }
   }

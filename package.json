@@ -4,12 +4,19 @@
   "description": "API Implementation for MM",
   "main": "src/app.js",
   "scripts": {
+    "checkdeployenv": "node deploy/nodejs/validate-deploy-env.js",
     "clean": "rimraf dist",
-    "lambdazip": "node src/util/aws-lambda-zip.js",
-    "yamlmerge": "node src/util/swagger-yaml-merge",
-    "applyconfig": "node src/util/aws-apply-config",
-    "prepdeploy": "npm run clean && npm run lambdazip && npm run yamlmerge && npm run applyconfig",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lambdazip": "node deploy/nodejs/aws-lambda-zip.js",
+    "yamlmerge": "node deploy/nodejs/swagger-yaml-merge",
+    "applyawsconfig": "node deploy/nodejs/aws-apply-config",
+    "applyperm": "chmod a+x -R ./deploy/scripts/aws/*.sh",
+    "uploadartifacts": "./deploy/scripts/aws/push_deploy_art_to_s3.sh",
+    "deletestack": "./deploy/scripts/aws/delete_api_stack.sh",
+    "createstack": "./deploy/scripts/aws/create_api_stack.sh",
+    "prepdeploy": "npm run checkdeployenv && npm run clean && npm run lambdazip && npm run yamlmerge && npm run applyawsconfig && npm run applyperm",
+    "deploy": "npm run uploadartifacts && npm run deletestack && npm run createstack",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pwd": "pwd"
   },
   "repository": {
     "type": "git",
