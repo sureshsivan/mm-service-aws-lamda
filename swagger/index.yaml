@@ -1,6 +1,9 @@
 swagger: '2.0'
 info:
   $ref: info/index.yaml
+basePath: /v1
+schemes:
+- https
 paths:
   $ref: paths/index.yaml
 definitions:

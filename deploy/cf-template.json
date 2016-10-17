@@ -10,13 +10,13 @@
       "Type": "String",
       "AllowedPattern": ".*\\.zip",
       "Description": "The S3 object for the lambda function code package.",
-      "Default": "lambda-function.zip"
+      "Default": "lambda.zip"
     },
     "ApiGatewaySwaggerS3Key": {
       "Type": "String",
       "AllowedPattern": ".*\\.yaml",
       "Description": "The S3 object for the swagger definition of the API Gateway API.",
-      "Default": "simple-proxy-api.yaml"
+      "Default": "swagger2.yaml"
     }
   },
 

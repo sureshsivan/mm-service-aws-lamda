@@ -19,7 +19,7 @@ var buildSwaggerYaml = function(){
     JsonRefs.resolveRefs(root, options)
         .then(function (res) {
             fs.writeFileSync('./dist/swagger2.json', JSON.stringify(res.resolved, null, 2), 'utf8');
-            fs.writeFileSync('./dist/swagger2.yaml', YAML.dump(JSON.parse(JSON.stringify(res.resolved, null, 2))), 'utf8');
+            // fs.writeFileSync('./dist/swagger2.yaml', YAML.dump(JSON.parse(JSON.stringify(res.resolved, null, 2))), 'utf8');
         }, function (err) {
             console.error(err.stack);
         });

@@ -1,4 +1,8 @@
-/api:
+#/api:
+#  $ref: root.yaml
+#/api/health:
+#  $ref: health.yaml
+/:
   $ref: root.yaml
-/api/health:
-  $ref: health.yaml
+/{proxy+}:
+  $ref: aws-api-g-proxy.yaml

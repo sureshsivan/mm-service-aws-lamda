@@ -7,7 +7,8 @@
     "clean": "rimraf dist",
     "lambdazip": "node src/util/aws-lambda-zip.js",
     "yamlmerge": "node src/util/swagger-yaml-merge",
-    "prepdeploy": "npm run clean && npm run lambdazip && npm run yamlmerge",
+    "applyconfig": "node src/util/aws-apply-config",
+    "prepdeploy": "npm run clean && npm run lambdazip && npm run yamlmerge && npm run applyconfig",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
