@@ -7,3 +7,10 @@ get:
       description: Lamda endpoints are healthy
       schema:
         $ref: '#/definitions/Empty'
+  x-amazon-apigateway-integration:
+      type: aws
+      httpMethod: GET
+      uri: arn:aws:apigateway:YOUR_AWS_REGION:lambda:path/2015-03-31/functions/LAMBDA_ARN:function:AwsServerlessExpressFunction/invocations
+      responses:
+        default:
+          statusCode: 200
