@@ -8,7 +8,7 @@ var apputil = require('./util/util.js');
 
 // map routes with file names and load all router files
 glob.sync('src/routes/**/*.js').forEach(function(router){
-    var routeString = '/' + path.basename(router, '.js');
+    var routeString = '/api/' + path.basename(router, '.js');
     app.use(routeString, require(process.cwd() + '/' + router));
 });
 

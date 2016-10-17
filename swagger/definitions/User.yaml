@@ -1,0 +1,12 @@
+type: object
+properties:
+  userid:
+    type: string
+  firstname:
+    type: string
+  lastname:
+    type: string
+  fullname:
+    type: string
+  email:
+    type: string

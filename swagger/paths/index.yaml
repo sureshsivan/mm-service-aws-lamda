@@ -1,0 +1,4 @@
+/api:
+  $ref: ./root.yaml
+/api/health:
+  $ref: ./health.yaml

@@ -1,0 +1,9 @@
+get:
+  description: Healthcheck API test
+  produces:
+  - text/plain; charset=utf-8
+  responses:
+    '200':
+      description: Lamda endpoints are healthy
+      schema:
+        $ref: '#/definitions/Empty'
