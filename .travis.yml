@@ -1,1 +1,17 @@
+language: node_js
 
+node_js:
+  - "5.11"
+
+script:
+  echo "run unit tests here.." && exit 0
+
+before_deploy:
+  npm run prepdeploy
+
+deploy:
+  npm run build
+
+notifications:
+    email:
+        on_failure: always

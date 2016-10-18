@@ -4,20 +4,19 @@
   "description": "API Implementation for MM",
   "main": "src/app.js",
   "scripts": {
-    "checkdeployenv": "node deploy/nodejs/validate-deploy-env.js",
+    "_checkdeployenv": "node deploy/nodejs/validate-deploy-env.js",
+    "_lambdazip": "node deploy/nodejs/aws-lambda-zip.js",
+    "_yamlmerge": "node deploy/nodejs/swagger-yaml-merge",
+    "_applyawsconfig": "node deploy/nodejs/aws-apply-config",
+    "_applyperm": "chmod a+x -R ./deploy/scripts/aws/*.sh",
+    "_md5": "node deploy/nodejs/hash-files.js",
+    "_uploadartifacts": "./deploy/scripts/aws/archieve_n_upload.sh",
+    "_deletestack": "./deploy/scripts/aws/delete_api_stack.sh",
+    "_createorupdatestack": "./deploy/scripts/aws/create_or_update_api_stack.sh",
     "clean": "rimraf dist",
-    "lambdazip": "node deploy/nodejs/aws-lambda-zip.js",
-    "yamlmerge": "node deploy/nodejs/swagger-yaml-merge",
-    "applyawsconfig": "node deploy/nodejs/aws-apply-config",
-    "applyperm": "chmod a+x -R ./deploy/scripts/aws/*.sh",
-    "md5": "node deploy/nodejs/hash-files.js",
-    "uploadartifacts": "./deploy/scripts/aws/archieve_n_upload.sh",
-    "deletestack": "./deploy/scripts/aws/delete_api_stack.sh",
-    "createorupdatestack": "./deploy/scripts/aws/create_or_update_api_stack.sh",
-    "prepdeploy": "npm run checkdeployenv && npm run clean && npm run lambdazip && npm run yamlmerge && npm run applyawsconfig && npm run applyperm",
-    "deploy": "npm run md5 && npm run uploadartifacts && npm run createorupdatestack",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "pwd": "pwd"
+    "prepdeploy": "npm run _checkdeployenv && npm run clean && npm run _lambdazip && npm run _yamlmerge && npm run _applyawsconfig && npm run _applyperm",
+    "deploy": "npm run _md5 && npm run _uploadartifacts && npm run _createorupdatestack",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -25,7 +24,11 @@
   },
   "keywords": [
     "aws",
-    "lamda"
+    "lamda",
+    "serverless",
+    "api gateway",
+    "rest",
+    "api"
   ],
   "author": "suresh.sivanantham@gmail.com",
   "license": "ISC",
