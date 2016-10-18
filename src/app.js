@@ -13,8 +13,8 @@ glob.sync('src/routes/**/*.js').forEach(function(router){
     app.use(routeString, require(process.cwd() + '/' + router));
 });
 
-// app.listen(3000, function() {
-//     console.log('Listening on port 3000...')
-// })
+app.listen(3000, function() {
+    console.log('Listening on port 3000...')
+})
 // this is for aws lambda
 module.exports = app;
