@@ -11,7 +11,9 @@ before_deploy:
   npm run prepdeploy
 
 deploy:
-  npm run build
+  - provider: script
+    script: npm run deploy
+    skip_cleanup: true
 
 notifications:
     email:
