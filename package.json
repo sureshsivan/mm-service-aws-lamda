@@ -10,12 +10,12 @@
     "yamlmerge": "node deploy/nodejs/swagger-yaml-merge",
     "applyawsconfig": "node deploy/nodejs/aws-apply-config",
     "applyperm": "chmod a+x -R ./deploy/scripts/aws/*.sh",
-    "uploadartifacts": "./deploy/scripts/aws/push_deploy_art_to_s3.sh",
+    "md5": "node deploy/nodejs/hash-files.js",
+    "uploadartifacts": "./deploy/scripts/aws/archieve_n_upload.sh",
     "deletestack": "./deploy/scripts/aws/delete_api_stack.sh",
     "createorupdatestack": "./deploy/scripts/aws/create_or_update_api_stack.sh",
-    "createstack": "./deploy/scripts/aws/create_api_stack.sh",
     "prepdeploy": "npm run checkdeployenv && npm run clean && npm run lambdazip && npm run yamlmerge && npm run applyawsconfig && npm run applyperm",
-    "deploy": "npm run uploadartifacts && npm run createorupdatestack",
+    "deploy": "npm run md5 && npm run uploadartifacts && npm run createorupdatestack",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pwd": "pwd"
   },
@@ -44,6 +44,7 @@
     "adm-zip": "^0.4.7",
     "archiver": "^1.1.0",
     "json-refs": "^2.1.6",
+    "md5-file": "^3.1.1",
     "rimraf": "^2.5.2",
     "yaml-js": "^0.1.4"
   },
