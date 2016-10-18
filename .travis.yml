@@ -5,7 +5,7 @@ node_js:
   - "5.11"
 
 script:
-  echo "run unit tests here.." && exit 0
+  npm run test
 
 before_deploy:
   npm run prepdeploy
