@@ -1,3 +1,4 @@
+# deploys into AWS infra - with cloudformation template - uses api gteway and lambda
 language: node_js
 
 node_js:
