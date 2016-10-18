@@ -12,9 +12,10 @@
     "applyperm": "chmod a+x -R ./deploy/scripts/aws/*.sh",
     "uploadartifacts": "./deploy/scripts/aws/push_deploy_art_to_s3.sh",
     "deletestack": "./deploy/scripts/aws/delete_api_stack.sh",
+    "createorupdatestack": "./deploy/scripts/aws/create_or_update_api_stack.sh",
     "createstack": "./deploy/scripts/aws/create_api_stack.sh",
     "prepdeploy": "npm run checkdeployenv && npm run clean && npm run lambdazip && npm run yamlmerge && npm run applyawsconfig && npm run applyperm",
-    "deploy": "npm run uploadartifacts && npm run deletestack && npm run createstack",
+    "deploy": "npm run uploadartifacts && npm run createorupdatestack",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pwd": "pwd"
   },
