@@ -33,9 +33,9 @@ echo "Using Lambda File : " $LAMBDA_FILE_NAME
 echo "Using Swagger File : " $SWAGGER_FILE_NAME
 
 if [ -z "$STACK_ALIVE" ]; then
-    echo "[INFO] Serverless Stack was never created or dead - recreating the complete stack : CREATING NEW STACK" >& 2
+    echo "[INFO] ${STACK_NAME} Stack was never created or dead - recreating the complete stack : CREATING NEW STACK" >& 2
     $AWS_CLI cloudformation create-stack \
-            --stack-name MM-SERVERLESS-APP-API-STACK \
+            --stack-name $STACK_NAME \
             --template-body file://./deploy/cf-template-serverless-stack.json \
             --capabilities CAPABILITY_IAM \
             --parameters \
@@ -45,9 +45,9 @@ if [ -z "$STACK_ALIVE" ]; then
             --region $AWS_REGION
     echo "[INFO] STACK CREATION : Kicked Off"
 else
-    echo "[INFO] Serverless Stack was already built and alive : UPDATING EXISTING STACK" >& 2
+    echo "[INFO] ${STACK_NAME} Stack was already built and alive : UPDATING EXISTING STACK" >& 2
     $AWS_CLI cloudformation update-stack \
-            --stack-name MM-SERVERLESS-APP-API-STACK \
+            --stack-name $STACK_NAME \
             --template-body file://./deploy/cf-template-serverless-stack.json \
             --capabilities CAPABILITY_IAM \
             --parameters \
