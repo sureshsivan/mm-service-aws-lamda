@@ -10,13 +10,13 @@ script:
 before_deploy:
   pip install --user awscli
 
-#deploy:
-#  - provider: script
-#    script: npm run prepdeploy
-#    skip_cleanup: true
-#  - provider: script
-#    script: npm run deploy
-#    skip_cleanup: true
+deploy:
+  - provider: script
+    script: npm run prepdeploy
+    skip_cleanup: true
+  - provider: script
+    script: npm run deploy
+    skip_cleanup: true
 
 notifications:
     email:
