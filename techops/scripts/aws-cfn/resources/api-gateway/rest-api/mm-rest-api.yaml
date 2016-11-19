@@ -1,0 +1,8 @@
+Type: AWS::ApiGateway::RestApi
+Properties:
+  Description: AWS Serverless Express API for MM app
+  BodyS3Location:
+    Bucket:
+      Ref: ParamAssetBucket
+    Key:
+      Ref: ParamSwaggerFile

@@ -1,4 +1,30 @@
-LamdaFunctionUrl:
 ApiGatewayUrl:
+  Description: AWS Specific URL for the Deployed API
+  Value:
+    Fn::Join:
+    - ''
+    - - https://
+      - Ref: ResourceApiGatewayApi
+      - ".execute-api."
+      - Ref: AWS::Region
+      - ".amazonaws.com/"
+      - Ref: ParamDeployEnv
+      - "/"
 ApiDomainUrl:
+  Description: Domain based url of the API
+  Value:
+    Fn::Join:
+      - ''
+      - - https://
+        - Ref: ParamAppDomain
 LambdaConsoleUrl:
+  Description: Console URL for the Lambda Function.
+  Value:
+    Fn::Join:
+    - ''
+    - - https://
+      - Ref: AWS::Region
+      - ".console.aws.amazon.com/lambda/home?region="
+      - Ref: AWS::Region
+      - "#/functions/"
+      - Ref: LambdaFunction

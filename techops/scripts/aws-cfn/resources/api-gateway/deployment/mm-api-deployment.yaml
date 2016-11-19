@@ -1,0 +1,6 @@
+Type: AWS::ApiGateway::Deployment
+Properties:
+  RestApiId:
+    Ref: ResourceApiGatewayRestApi
+  StageName:
+    Ref: ParamDeployEnv

@@ -1,0 +1,16 @@
+Type: AWS::Lambda::Function
+Properties:
+  Code:
+    S3Bucket:
+      Ref: ParamAssetBucket
+    S3Key:
+      Ref: ParamLambdaZipFile
+  FunctionName: AwsServerlessExpressFunction
+  Handler: src/lambda.handler
+  MemorySize: 128
+  Role:
+    Fn::GetAtt:
+    - ResourceLambdaExecuteIamRole
+    - Arn
+  Runtime: nodejs4.3
+  Timeout: 30
