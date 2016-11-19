@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 
 var healthCheckFn = function(req, res){
-    res.send("i am healthy as devil - sarooosdfnvlkisdjfb56476547654vnkdsjfbk!!! ");
+    res.send("i am healthy as devil - domain test with api gateway through travis CI");
 };
 
 router.get('/', healthCheckFn);
