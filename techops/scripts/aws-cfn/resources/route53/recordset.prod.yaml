@@ -1,0 +1,39 @@
+Type: AWS::Route53::RecordSetGroup
+DependsOn:
+- ResourceCloudFrontDistribution
+Properties:
+  HostedZoneName:
+    Fn::Join:
+    - ''
+    - - Ref: ParamRootDomain
+      - "."
+  RecordSets:
+  - Name:
+      Ref: ParamAppDomain
+    Type: A
+    AliasTarget:
+      HostedZoneId:
+        Fn::FindInMap:
+        - HostedZones
+        - CloudFront
+        - ZoneId
+      DNSName:
+        Fn::GetAtt:
+        - ResourceCloudFrontDistribution
+        - DomainName
+  - Name:
+      Fn::Join:
+      - ''
+      - - www.
+        - Ref: ParamAppDomain
+    Type: CNAME
+    TTL: '900'
+    ResourceRecords:
+    - Fn::Join:
+      - "."
+      - - www
+        - Ref: ParamAppDomain
+        - Fn::FindInMap:
+          - RegionMap
+          - Ref: AWS::Region
+          - websiteendpoint

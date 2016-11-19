@@ -1,0 +1,21 @@
+DeployEnv:
+  Type: String
+  Description: Deploy Environment - Api gateway stage will be created accordingly
+  AllowedValues:
+    - dev
+    - prod
+  ConstraintDescription: Must be either dev or prod
+  Default: dev
+AssetBucket:
+  Type: String
+  Description: The bucket name where API Deployment assets will be placed for deployment
+LambdaZipFile:
+  Type: String
+  AllowedPattern: ".*\\.zip"
+  Description: Lambda code zip file which will be used for Lambda depoloyment - the file should be in S3 bucket specified above.
+  Default: swagger2.json
+SwaggerFile:
+  Type: String
+  AllowedPattern: ".*\\.json"
+  Description: Swagger file which will be used for API Gateway depoloyment - the file should be in S3 bucket specified above.
+  Default: swagger2.json

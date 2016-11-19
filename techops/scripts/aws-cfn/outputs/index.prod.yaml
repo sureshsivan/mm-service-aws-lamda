@@ -1,0 +1,33 @@
+S3WebsiteEndpointUrl:
+  Value:
+    Fn::GetAtt:
+    - ResourceWebsiteS3Bucket
+    - WebsiteURL
+S3WebsiteWWWRedirectEndpointUrl:
+  Value:
+    Fn::GetAtt:
+    - ResourceWWWRedirectS3Bucket
+    - WebsiteURL
+AppDomainAddress:
+  Value:
+    Fn::Join:
+    - ''
+    - - http://
+      - Ref: ParamAppDomain
+AppDomainWWWRedirectAddress:
+  Value:
+    Fn::Join:
+    - ''
+    - - http://
+      - Fn::Join:
+        - "."
+        - - www
+          - Ref: ParamAppDomain
+CloudFrontUrl:
+  Value:
+    Fn::Join:
+    - ''
+    - - https://
+      - Fn::GetAtt:
+            - ResourceCloudFrontDistribution
+            - DomainName

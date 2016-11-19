@@ -1,0 +1,6 @@
+ResourceWebsiteS3Bucket:
+  $ref: s3/website-bucket.yaml
+ResourceWWWRedirectS3Bucket:
+  $ref: s3/www-website-bucket.yaml
+ResourceRoute53Recordset:
+  $ref: route53/recordset.dev.yaml

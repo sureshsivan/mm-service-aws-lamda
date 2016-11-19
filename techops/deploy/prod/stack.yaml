@@ -1,0 +1,15 @@
+# Root File for non cdn based cloud formation template
+#
+AWSTemplateFormatVersion: '2010-09-09'
+Description: "MM - API Infrastructure - Serverless - powered by AWS Lambda - DEV stack"
+Parameters:
+  $ref: ../../scripts/aws-cfn/parameters/index.yaml
+Mappings:
+  RegionMap:
+    $ref: ../../scripts/aws-cfn/mappings/region-map.yaml
+  HostedZones:
+    $ref: ../../scripts/aws-cfn/mappings/hosted-zones.yaml
+Resources:
+  $ref: ../../scripts/aws-cfn/resources/index.prod.yaml
+Outputs:
+  $ref: ../../scripts/aws-cfn/outputs/index.prod.yaml

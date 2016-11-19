@@ -1,0 +1,39 @@
+Type: AWS::Route53::RecordSetGroup
+Properties:
+  HostedZoneName:
+    Fn::Join:
+    - ''
+    - - Ref: ParamRootDomain
+      - "."
+  RecordSets:
+  - Name:
+      Ref: ParamAppDomain
+    Type: A
+    AliasTarget:
+      DNSName:
+        Fn::FindInMap:
+        - RegionMap
+        - Ref: AWS::Region
+        - websiteendpoint
+      HostedZoneId:
+        Fn::FindInMap:
+        - RegionMap
+        - Ref: AWS::Region
+        - S3hostedzoneID
+  - Name:
+      Fn::Join:
+      - ''
+      - - www.
+        - Ref: ParamAppDomain
+    Type: A
+    AliasTarget:
+      DNSName:
+        Fn::FindInMap:
+        - RegionMap
+        - Ref: AWS::Region
+        - websiteendpoint
+      HostedZoneId:
+        Fn::FindInMap:
+        - RegionMap
+        - Ref: AWS::Region
+        - S3hostedzoneID
