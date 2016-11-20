@@ -4,11 +4,14 @@ language: node_js
 node_js:
   - "5.11"
 
+env:
+  - DEPLOY_ENV=dev
+
 script:
-  npm run test
+  npm run build
 
 before_deploy:
-  pip install --user awscli
+   pip install --user awscli
 
 deploy:
   - provider: script
