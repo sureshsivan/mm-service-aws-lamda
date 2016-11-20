@@ -55,6 +55,7 @@ if [ -z "$STACK_ALIVE" ]; then
                 ParameterKey=ParamRootDomain,ParameterValue=$ROOT_DOMAIN_NAME       \
                 ParameterKey=ParamAppDomain,ParameterValue=$APP_DOMAIN_NAME         \
                 ParameterKey=ParamAssetBucket,ParameterValue=$AWS_LAMDA_BUCKET_NAME \
+                ParameterKey=ParamDeployEnv,ParameterValue=$DEPLOY_ENV              \
                 ParameterKey=ParamLambdaZipFile,ParameterValue=$LAMBDA_FILE_NAME    \
                 ParameterKey=ParamSwaggerFile,ParameterValue=$SWAGGER_FILE_NAME     \
                 ParameterKey=ParamLambdaFnName,ParameterValue=$LAMBDA_FN_NAME       \
@@ -70,6 +71,7 @@ else
                 ParameterKey=ParamRootDomain,ParameterValue=$ROOT_DOMAIN_NAME       \
                 ParameterKey=ParamAppDomain,ParameterValue=$APP_DOMAIN_NAME         \
                 ParameterKey=ParamAssetBucket,ParameterValue=$AWS_LAMDA_BUCKET_NAME \
+                ParameterKey=ParamDeployEnv,ParameterValue=$DEPLOY_ENV              \
                 ParameterKey=ParamLambdaZipFile,ParameterValue=$LAMBDA_FILE_NAME    \
                 ParameterKey=ParamSwaggerFile,ParameterValue=$SWAGGER_FILE_NAME     \
                 ParameterKey=ParamLambdaFnName,ParameterValue=$LAMBDA_FN_NAME       \
