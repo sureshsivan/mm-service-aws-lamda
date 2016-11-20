@@ -1,5 +1,5 @@
 version: "1.0.0"
-title: Mean Money Manager API
+title: MM App API for Env:#DEPLOY_ENV#
 description:
   description........
 contact:

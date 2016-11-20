@@ -1,8 +1,0 @@
-Type: AWS::S3::Bucket
-Properties:
-  BucketName:
-    Ref: ParamAppDomain
-  AccessControl: PublicRead
-  WebsiteConfiguration:
-    IndexDocument: index.html
-    ErrorDocument: site-error.html

@@ -5,7 +5,8 @@ Properties:
       Ref: ParamAssetBucket
     S3Key:
       Ref: ParamLambdaZipFile
-  FunctionName: AwsServerlessExpressFunction
+  FunctionName:
+    Ref: ParamLambdaFnName
   Handler: src/lambda.handler
   MemorySize: 128
   Role:

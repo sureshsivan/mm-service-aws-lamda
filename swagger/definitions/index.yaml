@@ -1,4 +1,2 @@
 Empty:
   $ref: Empty.yaml
-User:
-  $ref: User.yaml

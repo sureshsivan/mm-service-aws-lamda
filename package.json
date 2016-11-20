@@ -7,7 +7,7 @@
     "_checkdeployenv": "node techops/scripts/nodejs/validate-deploy-env.js",
     "_lambdazip": "node techops/scripts/nodejs/aws-lambda-zip.js",
     "_md5": "node techops/scripts/nodejs/hash-files.js",
-    "_prepswagger": "node techops/scripts/nodejs/yaml-merger-swagger",
+    "_prepswagger": "node techops/scripts/nodejs/yaml-merger-swagger && node techops/scripts/nodejs/swagger-apply-aws-config",
     "_prepcfstack": "node techops/scripts/nodejs/yaml-merger-cf-template",
     "_applyawsconfig": "node techops/scripts/nodejs/aws-apply-config",
     "_applyperm": "chmod a+x -R ./techops/scripts/awscli/*.sh",

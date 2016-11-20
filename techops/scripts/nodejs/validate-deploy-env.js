@@ -30,5 +30,8 @@ var checkEnvConfig = function(){
     if(! process.env.AWS_LAMDA_BUCKET_NAME){
         throw new Error("AWS_LAMDA_BUCKET_NAME env var not set");
     }
+    if(! process.env.LAMBDA_FN_BASE_NAME){
+        throw new Error("LAMBDA_FN_BASE_NAME env var not set");
+    }
 };
 checkEnvConfig();

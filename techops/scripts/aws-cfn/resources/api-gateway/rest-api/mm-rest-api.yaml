@@ -1,6 +1,11 @@
 Type: AWS::ApiGateway::RestApi
 Properties:
-  Description: AWS Serverless Express API for MM app
+  Description:
+        Fn::Join:
+        - ''
+        - - AWS Serverless Express API for MM app. Environment :
+          - Ref: ParamDeployEnv
+
   BodyS3Location:
     Bucket:
       Ref: ParamAssetBucket

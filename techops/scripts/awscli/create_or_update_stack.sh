@@ -40,7 +40,7 @@ STACK_ALIVE="$("$AWS_CLI" cloudformation list-stacks --stack-status-filter CREAT
 
 LAMBDA_FILE_NAME="$(aws s3 ls s3://"$AWS_LAMDA_BUCKET_NAME" | grep -o "lambda.*.zip")"
 SWAGGER_FILE_NAME="$(aws s3 ls s3://"$AWS_LAMDA_BUCKET_NAME" | grep -o "swagger2.*.json")"
-
+LAMBDA_FN_NAME=$DEPLOY_ENV-$LAMBDA_FN_BASE_NAME
 echo "Using Bucket : " $AWS_LAMDA_BUCKET_NAME
 echo "Using Lambda File : " $LAMBDA_FILE_NAME
 echo "Using Swagger File : " $SWAGGER_FILE_NAME
@@ -57,6 +57,7 @@ if [ -z "$STACK_ALIVE" ]; then
                 ParameterKey=ParamAssetBucket,ParameterValue=$AWS_LAMDA_BUCKET_NAME \
                 ParameterKey=ParamLambdaZipFile,ParameterValue=$LAMBDA_FILE_NAME    \
                 ParameterKey=ParamSwaggerFile,ParameterValue=$SWAGGER_FILE_NAME     \
+                ParameterKey=ParamLambdaFnName,ParameterValue=$LAMBDA_FN_NAME       \
             --region $AWS_REGION
     echo "[INFO] STACK CREATION : Kicked Off"
 else
@@ -71,6 +72,7 @@ else
                 ParameterKey=ParamAssetBucket,ParameterValue=$AWS_LAMDA_BUCKET_NAME \
                 ParameterKey=ParamLambdaZipFile,ParameterValue=$LAMBDA_FILE_NAME    \
                 ParameterKey=ParamSwaggerFile,ParameterValue=$SWAGGER_FILE_NAME     \
+                ParameterKey=ParamLambdaFnName,ParameterValue=$LAMBDA_FN_NAME       \
             --region $AWS_REGION
     echo "[INFO] STACK UPDATE : Kicked Off"
 fi
