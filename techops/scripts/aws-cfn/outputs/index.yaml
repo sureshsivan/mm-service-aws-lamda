@@ -10,6 +10,18 @@ ApiGatewayUrl:
       - ".amazonaws.com/"
       - Ref: ParamDeployEnv
       - "/"
+ApiGatewayHealthCheckUrl:
+  Description: Healthcheck URL of the deployed API
+  Value:
+    Fn::Join:
+    - ''
+    - - https://
+      - Ref: ResourceApiGatewayRestApi
+      - ".execute-api."
+      - Ref: AWS::Region
+      - ".amazonaws.com/"
+      - Ref: ParamDeployEnv
+      - "/api/health"
 ApiDomainUrl:
   Description: Domain based url of the API
   Value:
