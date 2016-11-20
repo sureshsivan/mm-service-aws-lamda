@@ -5,6 +5,6 @@ ResourceApiGatewayDeployment:
 ResourceLambdaExecuteIamRole:
   $ref: iam/role/mm-lambda-exec-role.yaml
 ResourceLambdaFunction:
-  $ref: lambda/
+  $ref: lambda/function/mm-api-lambda-function.yaml
 ResourceApiGatewayLambdaExecPermission:
   $ref: lambda/permission/mm-lambda-apig-exec-permission.yaml

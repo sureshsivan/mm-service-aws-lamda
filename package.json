@@ -6,19 +6,16 @@
   "scripts": {
     "_checkdeployenv": "node techops/scripts/nodejs/validate-deploy-env.js",
     "_lambdazip": "node techops/scripts/nodejs/aws-lambda-zip.js",
+    "_md5": "node techops/scripts/nodejs/hash-files.js",
     "_prepswagger": "node techops/scripts/nodejs/yaml-merger-swagger",
     "_prepcfstack": "node techops/scripts/nodejs/yaml-merger-cf-template",
     "_applyawsconfig": "node techops/scripts/nodejs/aws-apply-config",
     "_applyperm": "chmod a+x -R ./techops/scripts/awscli/*.sh",
-    "_md5": "node techops/scripts/nodejs/hash-files.js",
     "_uploadartifacts": "./techops/scripts/awscli/upload_assets_to_s3.sh",
-    "_createorupdatestack": "./techops/scripts/awscli/create_or_update_api_stack.sh",
-    "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail",
-
-    "prepdeploy": "npm run _checkdeployenv && npm run _applyperm && npm run _prepcfstack && npm run _createorupdatestack",
-    "deploy": "npm run _uploadartifacts",
-    "prepdeploy": "npm run _checkdeployenv && npm run clean && npm run _lambdazip && npm run _yamlmerge && npm run _applyawsconfig && npm run _applyperm",
-    "deploy": "npm run _md5 && npm run _uploadartifacts && npm run _createorupdatestack",
+    "_createorupdatestack": "./techops/scripts/awscli/create_or_update_stack.sh",
+    "build": "rimraf dist && npm run _lambdazip && npm run _prepswagger && npm run _md5 ",
+    "prepdeploy": "npm run _checkdeployenv && npm run _applyperm && npm run _prepcfstack && npm run _uploadartifacts",
+    "deploy": "npm run _createorupdatestack",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "repository": {

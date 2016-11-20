@@ -41,3 +41,4 @@ jspm_packages
 *.iml
 dist
 .secret
+.build/

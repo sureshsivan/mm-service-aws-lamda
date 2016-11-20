@@ -4,7 +4,7 @@ ApiGatewayUrl:
     Fn::Join:
     - ''
     - - https://
-      - Ref: ResourceApiGatewayApi
+      - Ref: ResourceApiGatewayRestApi
       - ".execute-api."
       - Ref: AWS::Region
       - ".amazonaws.com/"
@@ -27,4 +27,4 @@ LambdaConsoleUrl:
       - ".console.aws.amazon.com/lambda/home?region="
       - Ref: AWS::Region
       - "#/functions/"
-      - Ref: LambdaFunction
+      - Ref: ResourceLambdaFunction

@@ -12,4 +12,4 @@ Mappings:
 Resources:
   $ref: ../../scripts/aws-cfn/resources/index.dev.yaml
 Outputs:
-  $ref: ../../scripts/aws-cfn/outputs/index.dev.yaml
+  $ref: ../../scripts/aws-cfn/outputs/index.yaml
