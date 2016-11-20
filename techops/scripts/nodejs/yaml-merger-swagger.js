@@ -24,16 +24,4 @@ var buildSwaggerYaml = function(){
             console.error(err.stack);
         });
 };
-// var customizeJsonRefs = function(){
-//     console.log(JsonRefs.isRef);
-//     var isNotLocalSwaggerDef = function(obj){
-//         console.log(obj.$ref, obj.$ref.indexOf('#/') !== 0);
-//         return obj.$ref.indexOf('#/') !== 0;
-//     };
-//     JsonRefs.isRef = function (obj, throwWithDetails) {
-//         console.log('ayyoooo');
-//         return JsonRefs.isRefLike(obj, throwWithDetails) && isNotLocalSwaggerDef(obj) && JsonRefs.getRefDetails(obj, throwWithDetails).type !== 'invalid';
-//     };
-// };
-// customizeJsonRefs();
 buildSwaggerYaml();

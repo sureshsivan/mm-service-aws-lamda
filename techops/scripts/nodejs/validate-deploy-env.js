@@ -24,5 +24,11 @@ var checkEnvConfig = function(){
     if(! process.env.AWS_DEFAULT_REGION){
         throw new Error("AWS_DEFAULT_REGION env var not set");
     }
+    if(! process.env.AWS_REGION){
+        throw new Error("AWS_REGION env var not set");
+    }
+    if(! process.env.AWS_LAMDA_BUCKET_NAME){
+        throw new Error("AWS_LAMDA_BUCKET_NAME env var not set");
+    }
 };
 checkEnvConfig();
