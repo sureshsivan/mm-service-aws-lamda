@@ -9,9 +9,6 @@ Properties:
     Ref: ParamLambdaFnName
   Handler: src/lambda.handler
   MemorySize: 128
-  Role:
-    Fn::GetAtt:
-    - ResourceLambdaExecuteIamRole
-    - Arn
+  Role: !GetAtt ResourceLambdaExecuteIamRole.Arn
   Runtime: nodejs4.3
   Timeout: 30

@@ -1,0 +1,23 @@
+Type: AWS::Lambda::Function
+Properties:
+  Handler: index.handler
+  Role: !GetAtt ResourceLambdaExecuteIamRole.Arn
+  Code:
+    ZipFile: !Sub |
+      var response = require('cfn-response');
+      var apigateway = new AWS.APIGateway();
+      exports.handler = function(event, context) {
+        var params = {
+            certificateBody: event.ResourceProperties.certificateBody
+            certificateChain: event.ResourceProperties.certificateChain
+            certificateName: event.ResourceProperties.certificateName
+            certificatePrivateKey: event.ResourceProperties.certificatePrivateKey
+            domainName: event.ResourceProperties.domainName
+        };
+        apigateway.createDomainName(params, function(err, data) {
+            if (err) console.log(err, err.stack); // an error occurred
+            else     console.log(data);           // successful response
+            response.send(event, context, response.SUCCESS, data);
+        });
+      };
+  Runtime: nodejs

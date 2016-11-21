@@ -2,3 +2,7 @@
 
 # mm-service-aws-lamda
 MM Services Implementation in Lamda : To Connect with Route 53 domain
+
+
+notes:
+https://apigatewaycloudformation.bynordenfelt.com/#custom-ApiDomainName
