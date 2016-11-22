@@ -2,16 +2,17 @@ Type: AWS::Lambda::Function
 Properties:
   Handler: index.handler
   Role: !GetAtt ResourceLambdaExecuteIamRole.Arn
+  FunctionName: LamdaFnApiGatewayCustomDomainCreator
   Code:
     ZipFile: !Sub |
       var response = require('cfn-response');
       var apigateway = new AWS.APIGateway();
       exports.handler = function(event, context) {
         var params = {
-            certificateBody: event.ResourceProperties.certificateBody
-            certificateChain: event.ResourceProperties.certificateChain
-            certificateName: event.ResourceProperties.certificateName
-            certificatePrivateKey: event.ResourceProperties.certificatePrivateKey
+            certificateBody: event.ResourceProperties.certificateBody,
+            certificateChain: event.ResourceProperties.certificateChain,
+            certificateName: event.ResourceProperties.certificateName,
+            certificatePrivateKey: event.ResourceProperties.certificatePrivateKey,
             domainName: event.ResourceProperties.domainName
         };
         apigateway.createDomainName(params, function(err, data) {

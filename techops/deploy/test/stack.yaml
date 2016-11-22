@@ -1,0 +1,83 @@
+# Root File for non cdn based cloud formation template
+#
+AWSTemplateFormatVersion: '2010-09-09'
+Description: "TEst CF Custom type for API Gateway custom domain"
+Parameters:
+  ParamApiDomainName:
+    Type: String
+    Default: ParamApiDomainName-test
+  ParamCertificateName:
+    Type: String
+    Default: ParamCertificateName-test
+  ParamCertificateBody:
+    Type: String
+    Default: ParamCertificateBody-test
+  ParamCertificateChain:
+    Type: String
+    Default: ParamCertificateChain-test
+  ParamCertificatePrivateKey:
+    Type: String
+    Default: ParamCertificatePrivateKey-test
+Resources:
+  ResourceLambdaExecuteIamRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          Effect: Allow
+          Principal:
+            Service: lambda.amazonaws.com
+          Action: sts:AssumeRole
+      Path: "/"
+      Policies:
+      - PolicyName: root
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+            Resource: arn:aws:logs:*:*:*
+  ResourceApiGatewayCustomDomainLambdaFn:
+    Type: AWS::Lambda::Function
+    Properties:
+      Handler: index.handler
+      Role: !GetAtt ResourceLambdaExecuteIamRole.Arn
+      FunctionName: LamdaFnApiGatewayCustomDomainCreator
+      Code:
+        ZipFile: !Sub |
+          var response = require('cfn-response');
+          var apigateway = new AWS.APIGateway();
+          exports.handler = function(event, context) {
+            var params = {
+                certificateBody: event.ResourceProperties.certificateBody,
+                certificateChain: event.ResourceProperties.certificateChain,
+                certificateName: event.ResourceProperties.certificateName,
+                certificatePrivateKey: event.ResourceProperties.certificatePrivateKey,
+                domainName: event.ResourceProperties.domainName
+            };
+            apigateway.createDomainName(params, function(err, data) {
+                if (err) console.log(err, err.stack); // an error occurred
+                else     console.log(data);           // successful response
+                response.send(event, context, response.SUCCESS, data);
+            });
+          };
+      Runtime: nodejs
+  ResourceApiGatewayCustomDomain:
+    Type: Custom::ResourceApiGatewayCustomDomain
+    Properties:
+      ServiceToken: !GetAtt ResourceApiGatewayCustomDomainLambdaFn.Arn
+      domainName:
+        Ref: ParamApiDomainName
+      certificateName:
+        Ref: ParamCertificateName
+      certificateBody:
+        Ref: ParamCertificateBody
+      certificateChain:
+        Ref: ParamCertificateChain
+      certificatePrivateKey:
+        Ref: ParamCertificatePrivateKey
+

@@ -4,8 +4,8 @@ Properties:
   domainName:
     Ref: ParamApiDomainName
   certificateName:
-    xsbdfg
-   certificateBody:
+    Ref: ParamCertificateName
+  certificateBody:
     Ref: ParamCertificateBody
   certificateChain:
     Ref: ParamCertificateChain

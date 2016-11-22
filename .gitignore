@@ -40,5 +40,5 @@ jspm_packages
 .idea
 *.iml
 dist
-.secret
+.secret/
 .build/
