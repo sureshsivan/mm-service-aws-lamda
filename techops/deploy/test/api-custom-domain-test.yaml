@@ -52,6 +52,7 @@ Resources:
           var response = require('cfn-response');
           var apigateway = new AWS.APIGateway();
           exports.handler = function(event, context) {
+            console.log("Resopurce Properties : ", event.ResourceProperties);
             var params = {
                 certificateBody: event.ResourceProperties.certificateBody,
                 certificateChain: event.ResourceProperties.certificateChain,
@@ -80,4 +81,15 @@ Resources:
         Ref: ParamCertificateChain
       certificatePrivateKey:
         Ref: ParamCertificatePrivateKey
+  ResourceApiGatewayBsepathMapping:
+    Type: "AWS::ApiGateway::BasePathMapping"
+    Properties:
+      BasePath:
+      DomainName:
+        Ref: ParamApiDomainName
+      RestApiId:
+        e8wvt7fte0
+#        Ref: ResourceApiGatewayRestApi
+      Stage:
+        v1
 

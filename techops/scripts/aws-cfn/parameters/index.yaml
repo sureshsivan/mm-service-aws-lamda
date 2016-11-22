@@ -8,7 +8,7 @@ ParamAppDomain:
   Description: The actual Domain name to use for the application
   AllowedPattern: "(?!-)[a-zA-Z0-9-.]{1,63}(?<!-)"
   ConstraintDescription: must be a valid DNS zone name.
-  Default: mm.ng2.sivashub.com
+  Default: api.sivashub.com
 ParamDeployEnv:
   Type: String
   Description: Deploy Environment - Api gateway stage will be created accordingly
@@ -33,3 +33,12 @@ ParamSwaggerFile:
   AllowedPattern: ".*\\.json"
   Description: Swagger file which will be used for API Gateway depoloyment - the file should be in S3 bucket specified above.
   Default: swagger2.json
+ParamCertificateBody:
+  Type: String
+  Description: Certificate Body for the custom Domain SSL Setup
+ParamCertificateChain:
+  Type: String
+  Description: Certificate Chain for the custom Domain SSL Setup
+ParamCertificatePrivateKey:
+  Type: String
+  Description: Private Key for the custom Domain SSL Setup
