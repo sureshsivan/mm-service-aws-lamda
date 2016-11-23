@@ -9,13 +9,13 @@ Parameters:
   ParamCertificateName:
     Type: String
     Default: ParamCertificateName-test
-  ParamCertificateBody:
+  ParamECertificateBodyEncoded:
     Type: String
     Default: ParamCertificateBody-test
-  ParamCertificateChain:
+  ParamCertificateChainEncoded:
     Type: String
     Default: ParamCertificateChain-test
-  ParamCertificatePrivateKey:
+  ParamCertificatePrivateKeyEncoded:
     Type: String
     Default: ParamCertificatePrivateKey-test
 Resources:
@@ -51,15 +51,20 @@ Resources:
         ZipFile: !Sub |
           var response = require('cfn-response');
           var apigateway = new AWS.APIGateway();
+          var decodeBase64 = function(base64str) {
+              var decoded = new Buffer(base64str, 'base64').toString('ascii');
+              return decoded;
+          }
           exports.handler = function(event, context) {
             console.log("Resopurce Properties : ", event.ResourceProperties);
             var params = {
-                certificateBody: event.ResourceProperties.certificateBody,
-                certificateChain: event.ResourceProperties.certificateChain,
+                certificateBody: decodeBase64(event.ResourceProperties.certificateBody),
+                certificateChain: decodeBase64(event.ResourceProperties.certificateChain),
                 certificateName: event.ResourceProperties.certificateName,
-                certificatePrivateKey: event.ResourceProperties.certificatePrivateKey,
+                certificatePrivateKey: decodeBase64(event.ResourceProperties.certificatePrivateKey),
                 domainName: event.ResourceProperties.domainName
             };
+            console.log(params);
             apigateway.createDomainName(params, function(err, data) {
                 if (err) console.log(err, err.stack); // an error occurred
                 else     console.log(data);           // successful response
@@ -76,11 +81,11 @@ Resources:
       certificateName:
         Ref: ParamCertificateName
       certificateBody:
-        Ref: ParamCertificateBody
+        Ref: ParamCertificateBodyEncoded
       certificateChain:
-        Ref: ParamCertificateChain
+        Ref: ParamCertificateChainEncoded
       certificatePrivateKey:
-        Ref: ParamCertificatePrivateKey
+        Ref: ParamCertificatePrivateKeyEncoded
   ResourceApiGatewayBsepathMapping:
     Type: "AWS::ApiGateway::BasePathMapping"
     Properties:
