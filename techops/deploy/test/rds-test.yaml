@@ -1,5 +1,5 @@
 # Root File for non cdn based cloud formation template
-#
+# https://juanvicenteherrera.eu/2013/11/18/cloudformation-and-vpc-real-examples-part-i/
 AWSTemplateFormatVersion: '2010-09-09'
 Description: "TEst CF Custom type for API Gateway custom domain"
 Parameters:
@@ -22,12 +22,87 @@ Parameters:
 
 Resources:
 
-  ResourceMyVPC
-  ResourceSubnetGroup1
-  ResourceSubnetGroup2
-  ResourceInternetGateway
-  ResourceMyDBSecurityGroup:
+  ResourceDBVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      InstanceTenancy: default
+      Tags:
+      - Key: AppShortName
+        Value: MM
+      - Key: AppName
+        Value: Money Manager
+  ResourceDbSubnet1:
+    Type: AWS::EC2::Subnet
+        Properties:
+          VpcId:
+            Ref: ResourceDBVPC
+          CidrBlock: 10.0.0.0/24
+          AvailabilityZone: "us-east-1a"
+  ResourceDbSubnet2:
+    Type: AWS::EC2::Subnet
+        Properties:
+          VpcId:
+            Ref: ResourceDBVPC
+          CidrBlock: 10.0.1.0/24
+          AvailabilityZone: "us-east-1b"
+  ResourceAttchInternetGatewayDbSubnet1:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: ResourceDBVPC
+      InternetGatewayId:
+        Ref: ResourceDbSubnet1
+  ResourceAttchInternetGatewayDbSubnet2:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: ResourceDBVPC
+      InternetGatewayId:
+        Ref: ResourceDbSubnet2
+  ResourceDbRouteTable:
+    Type: AWS::EC2::RouteTable
+        Properties:
+          VpcId:
+            Ref: ResourceDBVPC
+          Tags:
+          - Key: foo
+            Value: bar
+  ResourceDbInternetGateway:
+    Type: "AWS::EC2::InternetGateway"
+        Properties:
+          Tags:
+          - Key: foo
+            Value: bar
+  ResourceRouteTableInternetGatewayAttachment:
+    Type: AWS::EC2::Route
+      Properties:
+        RouteTableId:
+          Ref: ResourceDbRouteTable
+        DestinationCidrBlock: 0.0.0.0/0
+        GatewayId:
+          Ref: ResourceDbInternetGateway
 
+
+
+
+  ResourceMyDBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow http to client host
+      VpcId:
+        Ref: ResourceDBVPC
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: '5432'
+        ToPort: '5432'
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: '22'
+        ToPort: '22'
+        CidrIp: 0.0.0.0/0
   ResourceDBInstance:
     Properties:
       DBSecurityGroups:
