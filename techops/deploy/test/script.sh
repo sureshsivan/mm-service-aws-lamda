@@ -57,7 +57,7 @@
 #
 # AWS Api Gateway Test
 $AWS_CLI cloudformation create-stack                                                                                \
-        --stack-name TEST-API-STACK-WITH-CUSTOM-DOMAIN                                                              \
+        --stack-name TEST-API-STACK-WITH-CUSTOM-DOMAIN-X1                                                             \
         --template-body file://./techops/deploy/test/api-custom-domain-test.yaml                                    \
         --capabilities CAPABILITY_IAM                                                                               \
         --parameters                                                                                                \
