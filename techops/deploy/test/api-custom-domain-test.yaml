@@ -9,7 +9,7 @@ Parameters:
   ParamCertificateName:
     Type: String
     Default: ParamCertificateName-test
-  ParamECertificateBodyEncoded:
+  ParamCertificateBodyEncoded:
     Type: String
     Default: ParamCertificateBody-test
   ParamCertificateChainEncoded:
@@ -41,8 +41,14 @@ Resources:
             - logs:CreateLogStream
             - logs:PutLogEvents
             Resource: arn:aws:logs:*:*:*
+          - Effect: Allow
+            Action:
+            - apigateway:*
+            Resource: arn:aws:apigateway:*:*:*
   ResourceApiGatewayCustomDomainLambdaFn:
     Type: AWS::Lambda::Function
+    DependsOn:
+      - ResourceLambdaExecuteIamRole
     Properties:
       Handler: index.handler
       Role: !GetAtt ResourceLambdaExecuteIamRole.Arn
@@ -50,6 +56,7 @@ Resources:
       Code:
         ZipFile: !Sub |
           var response = require('cfn-response');
+          var AWS = require('aws-sdk');
           var apigateway = new AWS.APIGateway();
           var decodeBase64 = function(base64str) {
               var decoded = new Buffer(base64str, 'base64').toString('ascii');
@@ -74,6 +81,8 @@ Resources:
       Runtime: nodejs
   ResourceApiGatewayCustomDomain:
     Type: Custom::ResourceApiGatewayCustomDomain
+    DependsOn:
+      - ResourceApiGatewayCustomDomainLambdaFn
     Properties:
       ServiceToken: !GetAtt ResourceApiGatewayCustomDomainLambdaFn.Arn
       domainName:
@@ -88,8 +97,9 @@ Resources:
         Ref: ParamCertificatePrivateKeyEncoded
   ResourceApiGatewayBsepathMapping:
     Type: "AWS::ApiGateway::BasePathMapping"
+    DependsOn:
+      - ResourceApiGatewayCustomDomain
     Properties:
-      BasePath:
       DomainName:
         Ref: ParamApiDomainName
       RestApiId:
