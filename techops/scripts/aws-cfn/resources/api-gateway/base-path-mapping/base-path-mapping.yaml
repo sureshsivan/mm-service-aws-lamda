@@ -1,0 +1,12 @@
+Type: AWS::ApiGateway::BasePathMapping
+Properties:
+  BasePath:
+    '(none)'
+  DomainName:
+    Fn::GetAtt:
+      - ResourceApiGatewayCustomDomain
+      - domainName
+  RestApiId:
+    Ref: ResourceApiGatewayRestApi
+  Stage:
+    Ref: ParamDeployEnv

@@ -1,0 +1,21 @@
+Type: AWS::Lambda::Function
+Properties:
+  Code:
+    S3Bucket:
+      Ref: ParamAssetBucket
+    S3Key:
+      Ref: ParamLambdaZipFile
+  FunctionName:
+    Fn::Join:
+      - ''
+      - - Ref: ParamDeployEnv
+        - Ref: ParamAppIdentifierCaps
+        - 'ApiLambdaFunction'
+  Handler: src/lambda.handler
+  MemorySize: 128
+  Role:
+    Fn::GetAtt:
+      - ResourceLambdaExecuteIamRole
+      - Arn
+  Runtime: nodejs
+  Timeout: 15

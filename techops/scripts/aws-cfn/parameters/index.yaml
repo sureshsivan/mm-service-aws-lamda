@@ -1,22 +1,39 @@
+ParamAppFullName:
+  Type: String
+  Description: Full Name of the App - Can have spaces
+ParamAppDescription:
+  Type: String
+  Description: Description of the app - Can have spaces
+  Default: Serverless API.
+ParamAppIdentifierCaps:
+  Type: String
+  Description: Short Name of the app - No Spaces - Uppercase
+ParamAppIdentifierSmall:
+  Type: String
+  Description: Short Name of the app - No Spaces - Lowercase
 ParamRootDomain:
   Type: String
   Description: Root Domain under which APIs will b deployed
   AllowedPattern: "(?!-)[a-zA-Z0-9-.]{1,63}(?<!-)"
   ConstraintDescription: must be a valid DNS zone name.
-ParamAppDomain:
-  Type: String
-  Description: The actual Domain name to use for the application
-  AllowedPattern: "(?!-)[a-zA-Z0-9-.]{1,63}(?<!-)"
-  ConstraintDescription: must be a valid DNS zone name.
-  Default: api.sivashub.com
 ParamDeployEnv:
   Type: String
   Description: Deploy Environment - Api gateway stage will be created accordingly
   AllowedValues:
     - dev
+    - int
     - prod
-  ConstraintDescription: Must be either dev or prod
+  ConstraintDescription: Must be one of the valid environments
   Default: dev
+ParamCertificateBodyEncoded:
+  Type: String
+  Description: Certificate Body for the custom Domain SSL Setup - Encoded
+ParamCertificateChainEncoded:
+  Type: String
+  Description: Certificate Chain for the custom Domain SSL Setup - Encoded
+ParamCertificatePrivateKeyEncoded:
+  Type: String
+  Description: Private Key for the custom Domain SSL Setup - Encoded
 ParamAssetBucket:
   Type: String
   Description: The bucket name where API Deployment assets will be placed for deployment
@@ -25,20 +42,8 @@ ParamLambdaZipFile:
   AllowedPattern: ".*\\.zip"
   Description: Lambda code zip file which will be used for Lambda depoloyment - the file should be in S3 bucket specified above.
   Default: lambda.zip
-ParamLambdaFnName:
-  Type: String
-  Description: Name of the Lambda Function.
 ParamSwaggerFile:
   Type: String
   AllowedPattern: ".*\\.json"
   Description: Swagger file which will be used for API Gateway depoloyment - the file should be in S3 bucket specified above.
   Default: swagger2.json
-ParamCertificateBody:
-  Type: String
-  Description: Certificate Body for the custom Domain SSL Setup
-ParamCertificateChain:
-  Type: String
-  Description: Certificate Chain for the custom Domain SSL Setup
-ParamCertificatePrivateKey:
-  Type: String
-  Description: Private Key for the custom Domain SSL Setup

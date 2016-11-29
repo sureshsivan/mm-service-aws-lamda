@@ -8,6 +8,8 @@ if [ "$DEPLOY_ENV" != "prod" ]; then
     APP_DOMAIN_NAME=$DEPLOY_ENV.$APP_DOMAIN_NAME
 fi
 
+#// check for bucket existance and create if not exist
+
 for filepath in dist/*.*
 do
     filename=${filepath##*/}

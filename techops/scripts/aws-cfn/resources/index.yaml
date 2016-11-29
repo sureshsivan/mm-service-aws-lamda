@@ -1,0 +1,20 @@
+ResourceApiGatewayRestApi:
+  $ref: api-gateway/rest-api/rest-api.yaml
+ResourceApiGatewayDeployment:
+  $ref: api-gateway/deployment/api-deployment.yaml
+ResourceLambdaExecuteIamRole:
+  $ref: iam/role/mm-lambda-exec-role.yaml
+ResourceApiGatewayCustomDomainLambdaFn:
+  $ref: lambda/function/api-lambda-function.yaml
+ResourceApiGatewayCustomDomain:
+  $ref: lambda/function/api-gateway-custom-domain.yaml
+ResourceApiGatewayBasePathMapping:
+  $ref: api-gateway/base-path-mapping/base-path-mapping.yaml
+ResourceLambdaFunction:
+  $ref: lambda/function/api-lambda-function.yaml
+ResourceApiGatewayLambdaExecPermission:
+  $ref: lambda/permission/mm-lambda-apig-exec-permission.yaml
+ResourceRoute53DnsMapping:
+  $ref: route53/recordset.yaml
+ResourceRoute53DnsMappingProduction:
+  $ref: route53/recordset.prod.yaml

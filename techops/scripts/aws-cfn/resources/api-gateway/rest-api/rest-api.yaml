@@ -1,0 +1,20 @@
+Type: AWS::ApiGateway::RestApi
+Properties:
+  Description:
+    Fn::Join:
+    - ''
+    - - Ref: ParamAppDescription
+      - '('
+      - Ref: ParamAppFullName
+      - ')'
+      - '('
+      - Ref: ParamDeployEnv
+      - ')'
+      - '('
+      - Ref: ParamAppIdentifierCaps
+      - ')'
+  BodyS3Location:
+    Bucket:
+      Ref: ParamAssetBucket #XXXX
+    Key:
+      Ref: ParamSwaggerFile #XXXX

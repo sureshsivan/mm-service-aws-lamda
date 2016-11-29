@@ -19,3 +19,7 @@ Properties:
         - logs:CreateLogStream
         - logs:PutLogEvents
         Resource: arn:aws:logs:*:*:*
+      - Effect: Allow
+        Action:
+        - apigateway:*
+        Resource: arn:aws:apigateway:*:*:*

@@ -53,6 +53,7 @@ Resources:
       Handler: index.handler
       Role: !GetAtt ResourceLambdaExecuteIamRole.Arn
       FunctionName: LamdaFnApiGatewayCustomDomainCreator
+      Timeout: 20
       Code:
         ZipFile: !Sub |
           var response = require('cfn-response');
@@ -65,34 +66,56 @@ Resources:
           exports.handler = function(event, context) {
             var responseData = {}, reqParams = {};
             var reqCallback = function(err, data){
-              if(err){
-                responseData['error'] = 'API Custom Domain Operation Failed OP: ' + event.RequestType;
-                console.log('REQUEST FAILED:\\n', JSON.stringify(responseData));
-                response.send(event, context, response.FAILED, responseData);
-              } else {
-                responseData['data'] = data;
-                console.log('REQUEST SUCCESS:\\n', JSON.stringify(responseData));
-                response.send(event, context, response.SUCCESS, responseData);
-              }
-            };
-            console.log('REQUEST RECEIVED:\\n', JSON.stringify(event));
-            if(event.RequestType == 'Create'){
-              reqParams['certificateBody'] = decodeBase64(event.ResourceProperties.certificateBody);
-              reqParams['certificateChain'] = decodeBase64(event.ResourceProperties.certificateChain);
-              reqParams['certificateName'] = event.ResourceProperties.certificateName;
-              reqParams['certificatePrivateKey'] = decodeBase64(event.ResourceProperties.certificatePrivateKey);
-              reqParams['domainName'] = event.ResourceProperties.domainName;
-              var apigReq = apigateway.createDomainName(reqParams, reqCallback);
-              console.log("Create Custom Domain Request Triggered >>> ", JSON.stringify(apigReq));
-            } else if(event.RequestType == 'Update'){
-              console.log('UPDATE Operation makes no iumpact on API Gateway - to do things manually');
-              response.send(event, context, response.SUCCESS, responseData)
-              return;
-            } else if(event.RequestType == 'Delete'){
-              reqParams['domainName'] = event.ResourceProperties.domainName;
-              var apigReq = apigateway.deleteDomainName(reqParams, reqCallback);
-              console.log("Delete Custom Domain Request Triggered >>> ", JSON.stringify(apigReq));
-            }
+                    if(err){
+                        responseData['error'] = 'API Custom Domain Operation Failed OP: ' + event.RequestType;
+                        console.log('REQUEST FAILED:', event.RequestType, "", JSON.stringify(err));
+                        response.send(event, context, response.FAILED, responseData);
+                    } else {
+                        for (var property in data) {
+                          if (object.hasOwnProperty(property)) {
+                            responseData[property] = data[property];
+                          }
+                        }
+                        console.log('REQUEST SUCCESS:', event.RequestType, "", JSON.stringify(data));
+                        response.send(event, context, response.SUCCESS, responseData);
+                    }
+                };
+                var buildCreateReq = function(){
+                    var reqParams = {}
+                    reqParams['certificateBody'] = decodeBase64(event.ResourceProperties.certificateBody);
+                    reqParams['certificateChain'] = decodeBase64(event.ResourceProperties.certificateChain);
+                    reqParams['certificateName'] = event.ResourceProperties.certificateName;
+                    reqParams['certificatePrivateKey'] = decodeBase64(event.ResourceProperties.certificatePrivateKey);
+                    reqParams['domainName'] = event.ResourceProperties.domainName;
+                    return reqParams;
+                };
+                var buildDeleteReq = function(){
+                    var reqParams = {}
+                    reqParams['domainName'] = event.ResourceProperties.domainName;
+                    return reqParams;
+                };
+                console.log('REQUEST RECEIVED:', JSON.stringify(event));
+                if(event.RequestType == 'Create'){
+                    apigateway.createDomainName(buildCreateReq(), reqCallback);
+                } else if(event.RequestType == 'Update'){
+                    console.log('UPDATE Operation makes no iumpact on API Gateway - Manually Delete the stack and recreate after an hour - since cloudfront is involved');
+                    responseData['error'] = 'UPDATE Operation makes no iumpact on API Gateway - Manually Delete the stack and recreate after an hour - since cloudfront is involved';
+                    response.send(event, context, response.FAILED, responseData)
+                    return;
+                    // apigateway.deleteDomainName(buildDeleteReq(), function(err, data){
+                    //     apigateway.createDomainName(buildCreateReq(), reqCallback);
+                    // });
+                } else if(event.RequestType == 'Delete'){
+                var reqParam = buildDeleteReq();
+                    apigateway.getDomainName(reqParam, function(err, data) {
+                      if((! err) && (data && data.domainName)){
+                        apigateway.deleteDomainName(reqParam, reqCallback);
+                      } else {  // assuming the domain name was not there - never created or already rolled back or deleted manually
+                        response.send(event, context, response.SUCCESS, responseData)
+                      }
+                    });
+
+                }
             //response.send(event, context, response.SUCCESS, responseData);
           };
       Runtime: nodejs
@@ -117,6 +140,8 @@ Resources:
     DependsOn:
       - ResourceApiGatewayCustomDomain
     Properties:
+      BasePath:
+        '(none)'
       DomainName:
         Ref: ParamApiDomainName
       RestApiId:
