@@ -72,7 +72,7 @@ Resources:
                         response.send(event, context, response.FAILED, responseData);
                     } else {
                         for (var property in data) {
-                          if (object.hasOwnProperty(property)) {
+                          if (data.hasOwnProperty(property)) {
                             responseData[property] = data[property];
                           }
                         }
@@ -100,7 +100,7 @@ Resources:
                 } else if(event.RequestType == 'Update'){
                     console.log('UPDATE Operation makes no iumpact on API Gateway - Manually Delete the stack and recreate after an hour - since cloudfront is involved');
                     responseData['error'] = 'UPDATE Operation makes no iumpact on API Gateway - Manually Delete the stack and recreate after an hour - since cloudfront is involved';
-                    response.send(event, context, response.FAILED, responseData)
+                    response.send(event, context, response.FAILED, responseData);
                     return;
                     // apigateway.deleteDomainName(buildDeleteReq(), function(err, data){
                     //     apigateway.createDomainName(buildCreateReq(), reqCallback);
@@ -111,10 +111,9 @@ Resources:
                       if((! err) && (data && data.domainName)){
                         apigateway.deleteDomainName(reqParam, reqCallback);
                       } else {  // assuming the domain name was not there - never created or already rolled back or deleted manually
-                        response.send(event, context, response.SUCCESS, responseData)
+                        response.send(event, context, response.SUCCESS, responseData);
                       }
                     });
-
                 }
             //response.send(event, context, response.SUCCESS, responseData);
           };

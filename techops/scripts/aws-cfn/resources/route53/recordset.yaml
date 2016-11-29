@@ -21,25 +21,25 @@ Properties:
           Fn::GetAtt:
             - ResourceApiGatewayCustomDomain
             - distributionDomainName
-  - Name:
-      Fn::Join:
-        - ''
-        - - 'www.'
-          - Ref: ParamDeployEnv
-          - '.'
-          - Ref: ParamAppIdentifierSmall
-          - '.'
-          - 'api'
-          - '.'
-          - Ref: ParamRootDomain
-    Type: A
-    AliasTarget:
-      DNSName:
-        Fn::GetAtt:
-          - ResourceApiGatewayCustomDomain
-          - distributionDomainName
-      HostedZoneId:
-        Fn::FindInMap:
-        - HostedZones
-        - CloudFront
-        - ZoneId
+    - Name:
+        Fn::Join:
+          - ''
+          - - 'www.'
+            - Ref: ParamDeployEnv
+            - '.'
+            - Ref: ParamAppIdentifierSmall
+            - '.'
+            - 'api'
+            - '.'
+            - Ref: ParamRootDomain
+      Type: A
+      AliasTarget:
+        DNSName:
+          Fn::GetAtt:
+            - ResourceApiGatewayCustomDomain
+            - distributionDomainName
+        HostedZoneId:
+          Fn::FindInMap:
+          - HostedZones
+          - CloudFront
+          - ZoneId

@@ -25,10 +25,9 @@ ApiGatewayHealthCheckUrl:
 ApiDomainUrl:
   Description: Domain based url of the API
   Value:
-    Fn::Join:
-      - ''
-      - - https://
-        - Ref: ParamAppDomain
+    Fn::GetAtt:
+      - ResourceApiGatewayCustomDomain
+      - domainName
 LambdaConsoleUrl:
   Description: Console URL for the Lambda Function.
   Value:
