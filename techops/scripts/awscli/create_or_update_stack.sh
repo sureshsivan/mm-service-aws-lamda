@@ -8,16 +8,7 @@
 # Wait and update stack if [CREATE_IN_PROGRESS, UPDATE_IN_PROGRESS, UPDATE_ROLLBACK_IN_PROGRESS, UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS]
 
 
-if [ "$DEPLOY_ENV" == "" ]; then
-    DEPLOY_ENV=dev
-fi
-
-if [ "$DEPLOY_ENV" != "prod" ]; then
-    APP_DOMAIN_NAME=$DEPLOY_ENV.$APP_DOMAIN_NAME
-fi
-
-STACK_NAME=$STACK_NAME-$DEPLOY_ENV
-
+STACK_NAME=$DEPLOY_ENV-$APP_ID_UPPERCASE-STACK
 CF_STACK_FILE="file://.build/stack-template.yaml"
 
 #  X CREATE_IN_PROGRESS
@@ -47,34 +38,44 @@ echo "Using Swagger File : " $SWAGGER_FILE_NAME
 
 if [ -z "$STACK_ALIVE" ]; then
     echo "[INFO] ${STACK_NAME} Stack was never created or dead - recreating the complete stack : CREATING NEW STACK" >& 2
-    $AWS_CLI cloudformation create-stack                                            \
-            --stack-name $STACK_NAME                                                \
-            --template-body $CF_STACK_FILE                                          \
-            --capabilities CAPABILITY_IAM                                           \
-            --parameters                                                            \
-                ParameterKey=ParamRootDomain,ParameterValue=$ROOT_DOMAIN_NAME       \
-                ParameterKey=ParamAppDomain,ParameterValue=$APP_DOMAIN_NAME         \
-                ParameterKey=ParamAssetBucket,ParameterValue=$AWS_LAMDA_BUCKET_NAME \
-                ParameterKey=ParamDeployEnv,ParameterValue=$DEPLOY_ENV              \
-                ParameterKey=ParamLambdaZipFile,ParameterValue=$LAMBDA_FILE_NAME    \
-                ParameterKey=ParamSwaggerFile,ParameterValue=$SWAGGER_FILE_NAME     \
-                ParameterKey=ParamLambdaFnName,ParameterValue=$LAMBDA_FN_NAME       \
+    $AWS_CLI cloudformation create-stack                                                                                            \
+            --stack-name $STACK_NAME                                                                                                \
+            --template-body $CF_STACK_FILE                                                                                          \
+            --capabilities CAPABILITY_IAM                                                                                           \
+            --parameters                                                                                                            \
+                ParameterKey=ParamAppFullName,ParameterValue=$APP_FULL_NAME                                                         \
+                ParameterKey=ParamAppDescription,ParameterValue=$APP_DESCRIPTION                                                    \
+                ParameterKey=ParamAppIdentifierCaps,ParameterValue=$APP_ID_UPPERCASE                                                \
+                ParameterKey=ParamAppIdentifierSmall,ParameterValue=$APP_ID_LOWERCASE                                               \
+                ParameterKey=ParamRootDomain,ParameterValue=$ROOT_DOMAIN_NAME                                                       \
+                ParameterKey=ParamDeployEnv,ParameterValue=$DEPLOY_ENV                                                              \
+                ParameterKey=ParamCertificateBodyEncoded,ParameterValue=$ENCODED_AWS_API_G_CUST_DOMAIN_CERT_BODY                    \
+                ParameterKey=ParamCertificateChainEncoded,ParameterValue=$ENCODED_AWS_API_G_CUST_DOMAIN_CERT_CHAIN                  \
+                ParameterKey=ParamCertificatePrivateKeyEncoded,ParameterValue=$ENCODED_AWS_API_G_CUST_DOMAIN_CERT_PRIVATE_KEY       \
+                ParameterKey=ParamAssetBucket,ParameterValue=$AWS_LAMDA_BUCKET_NAME                                                 \
+                ParameterKey=ParamLambdaZipFile,ParameterValue=$ROOT_DOMAIN_NAME                                                    \
+                ParameterKey=ParamSwaggerFile,ParameterValue=$AWS_LAMDA_BUCKET_NAME                                                 \
             --region $AWS_REGION
     echo "[INFO] STACK CREATION : Kicked Off"
 else
     echo "[INFO] ${STACK_NAME} Stack was already built and alive : UPDATING EXISTING STACK" >& 2
-    $AWS_CLI cloudformation update-stack                                            \
-            --stack-name $STACK_NAME                                                \
-            --template-body $CF_STACK_FILE                                          \
-            --capabilities CAPABILITY_IAM                                           \
-            --parameters                                                            \
-                ParameterKey=ParamRootDomain,ParameterValue=$ROOT_DOMAIN_NAME       \
-                ParameterKey=ParamAppDomain,ParameterValue=$APP_DOMAIN_NAME         \
-                ParameterKey=ParamAssetBucket,ParameterValue=$AWS_LAMDA_BUCKET_NAME \
-                ParameterKey=ParamDeployEnv,ParameterValue=$DEPLOY_ENV              \
-                ParameterKey=ParamLambdaZipFile,ParameterValue=$LAMBDA_FILE_NAME    \
-                ParameterKey=ParamSwaggerFile,ParameterValue=$SWAGGER_FILE_NAME     \
-                ParameterKey=ParamLambdaFnName,ParameterValue=$LAMBDA_FN_NAME       \
+    $AWS_CLI cloudformation update-stack                                                                                            \
+            --stack-name $STACK_NAME                                                                                                \
+            --template-body $CF_STACK_FILE                                                                                          \
+            --capabilities CAPABILITY_IAM                                                                                           \
+            --parameters                                                                                                            \
+                ParameterKey=ParamAppFullName,ParameterValue=$APP_FULL_NAME                                                         \
+                ParameterKey=ParamAppDescription,ParameterValue=$APP_DESCRIPTION                                                    \
+                ParameterKey=ParamAppIdentifierCaps,ParameterValue=$APP_ID_UPPERCASE                                                \
+                ParameterKey=ParamAppIdentifierSmall,ParameterValue=$APP_ID_LOWERCASE                                               \
+                ParameterKey=ParamRootDomain,ParameterValue=$ROOT_DOMAIN_NAME                                                       \
+                ParameterKey=ParamDeployEnv,ParameterValue=$DEPLOY_ENV                                                              \
+                ParameterKey=ParamCertificateBodyEncoded,ParameterValue=$ENCODED_AWS_API_G_CUST_DOMAIN_CERT_BODY                    \
+                ParameterKey=ParamCertificateChainEncoded,ParameterValue=$ENCODED_AWS_API_G_CUST_DOMAIN_CERT_CHAIN                  \
+                ParameterKey=ParamCertificatePrivateKeyEncoded,ParameterValue=$ENCODED_AWS_API_G_CUST_DOMAIN_CERT_PRIVATE_KEY       \
+                ParameterKey=ParamAssetBucket,ParameterValue=$AWS_LAMDA_BUCKET_NAME                                                 \
+                ParameterKey=ParamLambdaZipFile,ParameterValue=$ROOT_DOMAIN_NAME                                                    \
+                ParameterKey=ParamSwaggerFile,ParameterValue=$AWS_LAMDA_BUCKET_NAME                                                 \
             --region $AWS_REGION
     echo "[INFO] STACK UPDATE : Kicked Off"
 fi

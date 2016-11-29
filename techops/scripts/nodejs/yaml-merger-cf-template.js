@@ -35,6 +35,7 @@ var mergeYaml = function(rootYaml){
         });
 };
 var deployEnv = process.env.DEPLOY_ENV || "dev";
-var stackTemplatePath = "techops/deploy/" + deployEnv + "/" + "stack.yaml";
-console.log(stackTemplatePath);
+// var stackTemplatePath = "techops/deploy/" + deployEnv + "/" + "stack.yaml";
+var stackTemplatePath = "techops/scripts/aws-cfn/stack.yaml";
+
 mergeYaml(stackTemplatePath);

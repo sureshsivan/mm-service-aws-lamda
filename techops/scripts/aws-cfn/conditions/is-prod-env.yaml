@@ -1,4 +1,4 @@
 IsProdEnv:
-  Fn:Equals:
+  Fn::Equals:
     - Ref: ParamDeployEnv
     - prod

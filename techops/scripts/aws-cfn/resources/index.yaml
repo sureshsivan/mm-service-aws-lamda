@@ -5,9 +5,9 @@ ResourceApiGatewayDeployment:
 ResourceLambdaExecuteIamRole:
   $ref: iam/role/mm-lambda-exec-role.yaml
 ResourceApiGatewayCustomDomainLambdaFn:
-  $ref: lambda/function/api-lambda-function.yaml
-ResourceApiGatewayCustomDomain:
   $ref: lambda/function/api-gateway-custom-domain.yaml
+ResourceApiGatewayCustomDomain:
+  $ref: custom/api-gateway-custom-domain.yaml
 ResourceApiGatewayBasePathMapping:
   $ref: api-gateway/base-path-mapping/base-path-mapping.yaml
 ResourceLambdaFunction:

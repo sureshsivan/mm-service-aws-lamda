@@ -1,1 +1,32 @@
-NOTHING
+Type: Custom::ResourceApiGatewayCustomDomain
+DependsOn:
+  - ResourceApiGatewayCustomDomainLambdaFn
+Properties:
+  ServiceToken:
+    Fn::GetAtt:
+     - ResourceApiGatewayCustomDomainLambdaFn
+     - Arn
+  domainName:
+    Fn::Join:
+      - ''
+      - - Ref: ParamDeployEnv
+        - '.'
+        - Ref: ParamAppIdentifierSmall
+        - '.'
+        - 'api'
+        - '.'
+        - Ref: ParamRootDomain
+  certificateName:
+    Fn::Join:
+      - ''
+      - - Ref: ParamDeployEnv
+        - '-'
+        - Ref: ParamAppIdentifierSmall
+        - '-'
+        - 'certificate'
+  certificateBody:
+    Ref: ParamCertificateBodyEncoded
+  certificateChain:
+    Ref: ParamCertificateChainEncoded
+  certificatePrivateKey:
+    Ref: ParamCertificatePrivateKeyEncoded

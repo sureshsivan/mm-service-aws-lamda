@@ -2,31 +2,25 @@ Type: AWS::Route53::RecordSetGroup
 Properties:
   HostedZoneName:
     Fn::Join:
-    - ''
-    - - Ref: ParamRootDomain
-      - "."
+      - ''
+      - - Ref: ParamRootDomain
+        - "."
   RecordSets:
-  - Name:
-      Fn::Join:
-        - ''
-        - - Ref: ParamDeployEnv
-          - '.'
-          - Ref: ParamAppIdentifierSmall
-          - '.'
-          - 'api'
-          - '.'
-          - Ref: ParamRootDomain
-    Type: A
-    AliasTarget:
-      HostedZoneId:
-        Fn::FindInMap:
-        - HostedZones
-        - CloudFront
-        - ZoneId
-      DNSName:
+    - Name:
         Fn::GetAtt:
           - ResourceApiGatewayCustomDomain
-          - distributionDomainName
+          - domainName
+      Type: A
+      AliasTarget:
+        HostedZoneId:
+          Fn::FindInMap:
+          - HostedZones
+          - CloudFront
+          - ZoneId
+        DNSName:
+          Fn::GetAtt:
+            - ResourceApiGatewayCustomDomain
+            - distributionDomainName
   - Name:
       Fn::Join:
         - ''
