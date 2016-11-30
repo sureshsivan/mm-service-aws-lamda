@@ -2,22 +2,22 @@
 # https://juanvicenteherrera.eu/2013/11/18/cloudformation-and-vpc-real-examples-part-i/
 AWSTemplateFormatVersion: '2010-09-09'
 Description: "TEst CF Custom type for API Gateway custom domain"
-Parameters:
-  ParamDBName:
-    Type: String
-    Default: ParamApiDomainName-test
-  ParamDBMAsterUsername:
-    Type: String
-    Default: ParamCertificateName-test
-  ParamDBMasterPassword:
-    Type: String
-    Default: ParamCertificateBody-test
-  ParamDBInstanceClass:
-    Type: String
-    Default: ParamCertificateChain-test
-  ParamDBAllocatedStorage:
-    Type: String
-    Default: ParamCertificatePrivateKey-test
+#Parameters:
+#  ParamDBName:
+#    Type: String
+#    Default: TESTDB
+#  ParamDBMAsterUsername:
+#    Type: String
+#    Default: TESTUSER
+#  ParamDBMasterPassword:
+#    Type: String
+#    Default: TESTPASSW0Rd
+#  ParamDBInstanceClass:
+#    Type: String
+#    Default: postgre
+#  ParamDBAllocatedStorage:
+#    Type: String
+#    Default:
 
 
 Resources:
@@ -30,90 +30,94 @@ Resources:
       EnableDnsHostnames: true
       InstanceTenancy: default
       Tags:
-      - Key: AppShortName
-        Value: MM
-      - Key: AppName
-        Value: Money Manager
+        - Key: Name
+          Value: Custom-VPC
   ResourceDbSubnet1:
     Type: AWS::EC2::Subnet
-        Properties:
-          VpcId:
-            Ref: ResourceDBVPC
-          CidrBlock: 10.0.0.0/24
-          AvailabilityZone: "us-east-1a"
+    Properties:
+      VpcId:
+        Ref: ResourceDBVPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone: "us-east-1a"
+      Tags:
+        - Key: Name
+          Value: Custom-Subnet-1
   ResourceDbSubnet2:
     Type: AWS::EC2::Subnet
-        Properties:
-          VpcId:
-            Ref: ResourceDBVPC
-          CidrBlock: 10.0.1.0/24
-          AvailabilityZone: "us-east-1b"
-  ResourceAttchInternetGatewayDbSubnet1:
-    Type: AWS::EC2::VPCGatewayAttachment
     Properties:
       VpcId:
         Ref: ResourceDBVPC
-      InternetGatewayId:
-        Ref: ResourceDbSubnet1
-  ResourceAttchInternetGatewayDbSubnet2:
-    Type: AWS::EC2::VPCGatewayAttachment
-    Properties:
-      VpcId:
-        Ref: ResourceDBVPC
-      InternetGatewayId:
-        Ref: ResourceDbSubnet2
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone: "us-east-1b"
+      Tags:
+        - Key: Name
+          Value: Custom-Subnet-1
+#  ResourceAttchInternetGatewayDbSubnet1:
+#    Type: AWS::EC2::VPCGatewayAttachment
+#    Properties:
+#      VpcId:
+#        Ref: ResourceDBVPC
+#      InternetGatewayId:
+#        Ref: ResourceDbSubnet1
+#  ResourceAttchInternetGatewayDbSubnet2:
+#    Type: AWS::EC2::VPCGatewayAttachment
+#    Properties:
+#      VpcId:
+#        Ref: ResourceDBVPC
+#      InternetGatewayId:
+#        Ref: ResourceDbSubnet2
   ResourceDbRouteTable:
     Type: AWS::EC2::RouteTable
-        Properties:
-          VpcId:
-            Ref: ResourceDBVPC
-          Tags:
-          - Key: foo
-            Value: bar
-  ResourceDbInternetGateway:
-    Type: "AWS::EC2::InternetGateway"
-        Properties:
-          Tags:
-          - Key: foo
-            Value: bar
-  ResourceRouteTableInternetGatewayAttachment:
-    Type: AWS::EC2::Route
-      Properties:
-        RouteTableId:
-          Ref: ResourceDbRouteTable
-        DestinationCidrBlock: 0.0.0.0/0
-        GatewayId:
-          Ref: ResourceDbInternetGateway
-
-
-
-
-  ResourceMyDBSecurityGroup:
-    Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: Allow http to client host
       VpcId:
         Ref: ResourceDBVPC
-      SecurityGroupIngress:
-      - IpProtocol: tcp
-        FromPort: '5432'
-        ToPort: '5432'
-        CidrIp: 0.0.0.0/0
-      - IpProtocol: tcp
-        FromPort: '22'
-        ToPort: '22'
-        CidrIp: 0.0.0.0/0
-  ResourceDBInstance:
+      Tags:
+        - Key: Name
+          Value: Teest
+  ResourceDbInternetGateway:
+    Type: "AWS::EC2::InternetGateway"
     Properties:
-      DBSecurityGroups:
-      - Ref: ResourceMyDBSecurityGroup
-      AllocatedStorage: '5'
-      DBInstanceClass: db.t2.micro
-      Engine: PostgreSQL
-      EngineVersion: 9.5.4
-      StorageType: gp2 # General Purpose SSD
-      AllocatedStorage: 20
-      DBInstanceIdentifier: My DB Name
-      MasterUsername: MyUsername
-      MasterUserPassword: MyPassword
-    DeletionPolicy: Snapshot
+      Tags:
+        - Key: Name
+          Value: Teest
+#  ResourceRouteTableInternetGatewayAttachment:
+#    Type: AWS::EC2::Route
+#      Properties:
+#        RouteTableId:
+#          Ref: ResourceDbRouteTable
+#        DestinationCidrBlock: 0.0.0.0/0
+#        GatewayId:
+#          Ref: ResourceDbInternetGateway
+#
+#
+#
+#
+#  ResourceMyDBSecurityGroup:
+#    Type: AWS::EC2::SecurityGroup
+#    Properties:
+#      GroupDescription: Allow http to client host
+#      VpcId:
+#        Ref: ResourceDBVPC
+#      SecurityGroupIngress:
+#      - IpProtocol: tcp
+#        FromPort: '5432'
+#        ToPort: '5432'
+#        CidrIp: 0.0.0.0/0
+#      - IpProtocol: tcp
+#        FromPort: '22'
+#        ToPort: '22'
+#        CidrIp: 0.0.0.0/0
+#  ResourceDBInstance:
+#    Properties:
+#      DBSecurityGroups:
+#      - Ref: ResourceMyDBSecurityGroup
+#      AllocatedStorage: '5'
+#      DBInstanceClass: db.t2.micro
+#      Engine: PostgreSQL
+#      EngineVersion: 9.5.4
+#      StorageType: gp2 # General Purpose SSD
+#      AllocatedStorage: 20
+#      DBInstanceIdentifier: My DB Name
+#      MasterUsername: MyUsername
+#      MasterUserPassword: MyPassword
+#    DeletionPolicy: Snapshot

@@ -70,7 +70,7 @@
 
 $AWS_CLI cloudformation create-stack                                                                                \
         --stack-name TEST-API-STACK-WITH-CUSTOM-DOMAIN-X1                                                           \
-        --template-body file://./techops/deploy/test/rds-test                                                       \
+        --template-body file://./techops/test/rds-test.yaml                                                       \
         --capabilities CAPABILITY_IAM                                                                               \
         --parameters                                                                                                \
             ParameterKey=ParamApiDomainName,ParameterValue=test.$AWS_API_G_CUST_DOMAIN_NAME                         \
