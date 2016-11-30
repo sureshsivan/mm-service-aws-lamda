@@ -13,7 +13,7 @@ Properties:
         - Ref: ParamAppIdentifierCaps
         - 'CustomDomainCreationLambdaFunction'
   Timeout: 20
-  Runtime: nodejs
+  Runtime: nodejs4.3
   Code:
     ZipFile: |
       var response = require('cfn-response');
