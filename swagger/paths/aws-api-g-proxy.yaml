@@ -8,7 +8,7 @@ x-amazon-apigateway-any-method:
     type: string
   responses: {}
   x-amazon-apigateway-integration:
-    uri: arn:aws:apigateway:#AWS_REGION#:lambda:path/2015-03-31/functions/arn:aws:lambda:#AWS_REGION#:#AWS_ACCOUNT_ID#:function:#DEPLOY_ENV#-#LAMBDA_FN_BASE_NAME#/invocations
+    uri: arn:aws:apigateway:#AWS_REGION#:lambda:path/2015-03-31/functions/arn:aws:lambda:#AWS_REGION#:#AWS_ACCOUNT_ID#:function:#LAMBDA_FN_NAME#/invocations
     httpMethod: POST
     type: aws_proxy
 options:
