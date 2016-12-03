@@ -9,7 +9,6 @@
     "_md5": "node techops/scripts/nodejs/hash-files.js",
     "_prepswagger": "node techops/scripts/nodejs/yaml-merger-swagger && node techops/scripts/nodejs/swagger-apply-aws-config",
     "_prepcfstack": "node techops/scripts/nodejs/yaml-merger-cf-template",
-    "_applyawsconfig": "node techops/scripts/nodejs/aws-apply-config",
     "_applyperm": "chmod a+x -R ./techops/scripts/awscli/*.sh",
     "_uploadartifacts": "./techops/scripts/awscli/upload_assets_to_s3.sh",
     "_createorupdatestack": "./techops/scripts/awscli/create_or_update_stack.sh",
