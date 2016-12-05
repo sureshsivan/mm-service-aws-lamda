@@ -68,25 +68,5 @@
 #            ParameterKey=ParamCertificatePrivateKeyEncoded,ParameterValue=$ENCODED_AWS_API_G_CUST_DOMAIN_CERT_PRIVATE_KEY
 
 
-$AWS_CLI cloudformation create-stack                                                                                \
-        --stack-name TEST-API-STACK-WITH-CUSTOM-DOMAIN-X1                                                           \
-        --template-body file://./techops/test/rds-test.yaml                                                       \
-        --capabilities CAPABILITY_IAM                                                                               \
-        --parameters                                                                                                \
-            ParameterKey=ParamApiDomainName,ParameterValue=test.$AWS_API_G_CUST_DOMAIN_NAME                         \
-            ParameterKey=ParamCertificateName,ParameterValue=TEST$AWS_API_G_CUST_DOMAIN_CERT_BASE_NAME              \
-            ParameterKey=ParamCertificateBodyEncoded,ParameterValue=$ENCODED_AWS_API_G_CUST_DOMAIN_CERT_BODY                       \
-            ParameterKey=ParamCertificateChainEncoded,ParameterValue=$ENCODED_AWS_API_G_CUST_DOMAIN_CERT_CHAIN                     \
-            ParameterKey=ParamCertificatePrivateKeyEncoded,ParameterValue=$ENCODED_AWS_API_G_CUST_DOMAIN_CERT_PRIVATE_KEY
+$AWS_CLI cloudformation create-stack --stack-name TEST-RDS-STACK --template-body file://./techops/test/rds-test.yaml --capabilities CAPABILITY_IAM
 
-# RDS TEst
-#$AWS_CLI cloudformation create-stack                                                                                \
-#        --stack-name TEST-API-STACK-WITH-CUSTOM-DOMAIN                                                              \
-#        --template-body file://./techops/deploy/test/api-custom-domain-test.yaml                                    \
-#        --capabilities CAPABILITY_IAM                                                                               \
-#        --parameters                                                                                                \
-#            ParameterKey=ParamApiDomainName,ParameterValue=test.$AWS_API_G_CUST_DOMAIN_NAME                         \
-#            ParameterKey=ParamCertificateName,ParameterValue=TEST$AWS_API_G_CUST_DOMAIN_CERT_BASE_NAME              \
-#            ParameterKey=ParamCertificateBodyEncoded,ParameterValue=$ENCODED_AWS_API_G_CUST_DOMAIN_CERT_BODY                       \
-#            ParameterKey=ParamCertificateChainEncoded,ParameterValue=$ENCODED_AWS_API_G_CUST_DOMAIN_CERT_CHAIN                     \
-#            ParameterKey=ParamCertificatePrivateKeyEncoded,ParameterValue=$ENCODED_AWS_API_G_CUST_DOMAIN_CERT_PRIVATE_KEY

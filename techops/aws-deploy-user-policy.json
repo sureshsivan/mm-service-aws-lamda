@@ -1,0 +1,33 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "acm:*",
+        "apigateway:*",
+        "autoscaling:*",
+        "cloudformation:*",
+        "cloudwatch:*",
+        "cognito-identity:*",
+        "cognito-sync:*",
+        "dynamodb:*",
+        "elasticloadbalancing:*",
+        "events:*",
+        "iam:*",
+        "kinesis:*",
+        "lambda:*",
+        "logs:*",
+        "route53:*",
+        "s3:*",
+        "sns:*",
+        "sqs:*",
+        "kms:*",
+        "ec2:*",
+        "iot:*",
+        "waf:*"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

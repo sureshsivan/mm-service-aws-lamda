@@ -2,122 +2,209 @@
 # https://juanvicenteherrera.eu/2013/11/18/cloudformation-and-vpc-real-examples-part-i/
 AWSTemplateFormatVersion: '2010-09-09'
 Description: "TEst CF Custom type for API Gateway custom domain"
-#Parameters:
-#  ParamDBName:
-#    Type: String
-#    Default: TESTDB
-#  ParamDBMAsterUsername:
-#    Type: String
-#    Default: TESTUSER
-#  ParamDBMasterPassword:
-#    Type: String
-#    Default: TESTPASSW0Rd
-#  ParamDBInstanceClass:
-#    Type: String
-#    Default: postgre
-#  ParamDBAllocatedStorage:
-#    Type: String
-#    Default:
-
-
+Parameters:
+  ParamClassB:
+    Description: 'Class B of VPC (10.XXX.0.0/16)'
+    Type: Number
+    Default: 0
+    ConstraintDescription: 'Must be in the range [0-255]'
+    MinValue: 0
+    MaxValue: 255
 Resources:
-
-  ResourceDBVPC:
+  ResourceCustomVPC:
     Type: AWS::EC2::VPC
     Properties:
-      CidrBlock: 10.0.0.0/16
+      CidrBlock:
+        !Sub '10.${ParamClassB}.0.0/16'
       EnableDnsSupport: true
       EnableDnsHostnames: true
       InstanceTenancy: default
       Tags:
-        - Key: Name
-          Value: Custom-VPC
-  ResourceDbSubnet1:
-    Type: AWS::EC2::Subnet
+        - Key:
+            Name
+          Value:
+            !Sub 'VPC-10.${ParamClassB}.0.0/16'
+  ResourceInternetGateway:
+    Type: 'AWS::EC2::InternetGateway'
+    Properties:
+      Tags:
+        - Key:
+            Name
+          Value:
+            !Sub 'IGW-10.${ParamClassB}.0.0/16'
+  ResourceVPCGatewayAttachment:
+    Type: 'AWS::EC2::VPCGatewayAttachment'
+    Properties:
+      VpcId: !Ref ResourceCustomVPC
+      InternetGatewayId: !Ref ResourceInternetGateway
+  ResourcePublicSubnetA:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      AvailabilityZone:
+        !Select [0, !GetAZs '']
+      CidrBlock:
+        !Sub '10.${ParamClassB}.0.0/24'
+      MapPublicIpOnLaunch: true
+      VpcId:
+        !Ref ResourceCustomVPC
+      Tags:
+      - Key:
+          Name
+        Value:
+          !Sub 'SUBNET-10.${ParamClassB}.0.0/24'
+      - Key:
+          Reach
+        Value:
+          public
+  ResourcePublicSubnetB:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      AvailabilityZone:
+        !Select [1, !GetAZs '']
+      CidrBlock:
+        !Sub '10.${ParamClassB}.1.0/24'
+      MapPublicIpOnLaunch: true
+      VpcId:
+        !Ref ResourceCustomVPC
+      Tags:
+      - Key:
+          Name
+        Value:
+          !Sub 'SUBNET-10.${ParamClassB}.1.0/24'
+      - Key:
+          Reach
+        Value:
+          public
+  ResourceRouteTablePublic:
+    Type: 'AWS::EC2::RouteTable'
     Properties:
       VpcId:
-        Ref: ResourceDBVPC
-      CidrBlock: 10.0.0.0/24
-      AvailabilityZone: "us-east-1a"
+        !Ref ResourceCustomVPC
       Tags:
-        - Key: Name
-          Value: Custom-Subnet-1
-  ResourceDbSubnet2:
-    Type: AWS::EC2::Subnet
+        - Key:
+            Name
+          Value:
+            CustomPublicRouteTable
+  ResourceRouteTablePrivate:
+    Type: 'AWS::EC2::RouteTable'
     Properties:
       VpcId:
-        Ref: ResourceDBVPC
-      CidrBlock: 10.0.1.0/24
-      AvailabilityZone: "us-east-1b"
+        !Ref ResourceCustomVPC
       Tags:
-        - Key: Name
-          Value: Custom-Subnet-1
-#  ResourceAttchInternetGatewayDbSubnet1:
-#    Type: AWS::EC2::VPCGatewayAttachment
-#    Properties:
-#      VpcId:
-#        Ref: ResourceDBVPC
-#      InternetGatewayId:
-#        Ref: ResourceDbSubnet1
-#  ResourceAttchInternetGatewayDbSubnet2:
-#    Type: AWS::EC2::VPCGatewayAttachment
-#    Properties:
-#      VpcId:
-#        Ref: ResourceDBVPC
-#      InternetGatewayId:
-#        Ref: ResourceDbSubnet2
-  ResourceDbRouteTable:
-    Type: AWS::EC2::RouteTable
+        - Key:
+            Name
+          Value:
+            CustomPrivateRouteTable
+  ResourceRouteTablePublicSubnetA:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      SubnetId:
+        !Ref ResourcePublicSubnetA
+      RouteTableId:
+        !Ref ResourceRouteTablePublic
+  ResourceRouteTablePublicSubnetB:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      SubnetId:
+        !Ref ResourcePublicSubnetB
+      RouteTableId:
+        !Ref ResourceRouteTablePublic
+  ResourceRouteTableInternetGatewayRoute:
+    Type: 'AWS::EC2::Route'
+    Properties:
+      RouteTableId:
+        !Ref ResourceRouteTablePublic
+      DestinationCidrBlock: '0.0.0.0/0'
+      GatewayId:
+        !Ref ResourceInternetGateway
+  ResourcePublicNetworkAcl:
+    Type: 'AWS::EC2::NetworkAcl'
     Properties:
       VpcId:
-        Ref: ResourceDBVPC
+        !Ref ResourceCustomVPC
       Tags:
-        - Key: Name
-          Value: Teest
-  ResourceDbInternetGateway:
-    Type: "AWS::EC2::InternetGateway"
+      - Key:
+          Name
+        Value:
+          CustomPublicACL
+  ResourcePrivateNetworkAcl:
+    Type: 'AWS::EC2::NetworkAcl'
     Properties:
+      VpcId:
+        !Ref ResourceCustomVPC
       Tags:
-        - Key: Name
-          Value: Teest
-#  ResourceRouteTableInternetGatewayAttachment:
-#    Type: AWS::EC2::Route
-#      Properties:
-#        RouteTableId:
-#          Ref: ResourceDbRouteTable
-#        DestinationCidrBlock: 0.0.0.0/0
-#        GatewayId:
-#          Ref: ResourceDbInternetGateway
-#
-#
-#
-#
-#  ResourceMyDBSecurityGroup:
-#    Type: AWS::EC2::SecurityGroup
-#    Properties:
-#      GroupDescription: Allow http to client host
-#      VpcId:
-#        Ref: ResourceDBVPC
-#      SecurityGroupIngress:
-#      - IpProtocol: tcp
-#        FromPort: '5432'
-#        ToPort: '5432'
-#        CidrIp: 0.0.0.0/0
-#      - IpProtocol: tcp
-#        FromPort: '22'
-#        ToPort: '22'
-#        CidrIp: 0.0.0.0/0
-#  ResourceDBInstance:
-#    Properties:
-#      DBSecurityGroups:
-#      - Ref: ResourceMyDBSecurityGroup
-#      AllocatedStorage: '5'
-#      DBInstanceClass: db.t2.micro
-#      Engine: PostgreSQL
-#      EngineVersion: 9.5.4
-#      StorageType: gp2 # General Purpose SSD
-#      AllocatedStorage: 20
-#      DBInstanceIdentifier: My DB Name
-#      MasterUsername: MyUsername
-#      MasterUserPassword: MyPassword
-#    DeletionPolicy: Snapshot
+      - Key:
+          Name
+        Value:
+          CustomPrivateACL
+  ResourcePublicNetworkACLSubnetAAssociation:
+    Type: 'AWS::EC2::SubnetNetworkAclAssociation'
+    Properties:
+      SubnetId:
+        !Ref ResourcePublicSubnetA
+      NetworkAclId:
+        !Ref ResourcePublicNetworkAcl
+  ResourcePublicNetworkACLSubnetBAssociation:
+    Type: 'AWS::EC2::SubnetNetworkAclAssociation'
+    Properties:
+      SubnetId:
+        !Ref ResourcePublicSubnetB
+      NetworkAclId:
+        !Ref ResourcePublicNetworkAcl
+  ResourcePublicNetworkAclIngressAllowAll:
+    Type: 'AWS::EC2::NetworkAclEntry'
+    Properties:
+      NetworkAclId:
+        !Ref ResourcePublicNetworkAcl
+      RuleNumber: 99
+      Protocol: -1
+      RuleAction: allow
+      Egress: false
+      CidrBlock: '0.0.0.0/0'
+  ResourcePublicNetworkAclEgressAllowAll:
+    Type: 'AWS::EC2::NetworkAclEntry'
+    Properties:
+      NetworkAclId:
+        !Ref ResourcePublicNetworkAcl
+      RuleNumber: 99
+      Protocol: -1
+      RuleAction: allow
+      Egress: true
+      CidrBlock: '0.0.0.0/0'
+
+  DatabaseSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription:
+        'test'
+      VpcId:
+        Ref: ResourceCustomVPC
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 3306
+        ToPort: 3306
+        SourceSecurityGroupId: !Ref WebServerSecurityGroup
+  ResourceDBSubnetGroup:
+    Type: 'AWS::RDS::DBSubnetGroup'
+    Properties:
+      DBSubnetGroupDescription: 'DB subnet group'
+      SubnetIds:
+      - Ref: ResourcePublicSubnetA
+      - Ref: ResourcePublicSubnetB
+  Database:
+    Type: 'AWS::RDS::DBInstance'
+    Properties:
+      AllocatedStorage: 5
+      BackupRetentionPeriod: 0
+      DBInstanceClass:
+        !Ref DBServerInstanceType
+      DBName: test
+      Engine: MySQL
+      MasterUsername: wordpress
+      MasterUserPassword: wordpress
+      VPCSecurityGroups:
+        - !Ref DatabaseSecurityGroup
+      DBSubnetGroupName:
+        !Ref ResourceDBSubnetGroup
+      MultiAZ: true
+      StorageType: gp2
