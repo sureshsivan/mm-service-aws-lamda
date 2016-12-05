@@ -171,8 +171,7 @@ Resources:
       RuleAction: allow
       Egress: true
       CidrBlock: '0.0.0.0/0'
-
-  DatabaseSecurityGroup:
+  ResourceDatabaseSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
       GroupDescription:
@@ -183,7 +182,6 @@ Resources:
       - IpProtocol: tcp
         FromPort: 3306
         ToPort: 3306
-        SourceSecurityGroupId: !Ref WebServerSecurityGroup
   ResourceDBSubnetGroup:
     Type: 'AWS::RDS::DBSubnetGroup'
     Properties:
@@ -191,20 +189,59 @@ Resources:
       SubnetIds:
       - Ref: ResourcePublicSubnetA
       - Ref: ResourcePublicSubnetB
-  Database:
+  ResourceMySqlDatabase:
     Type: 'AWS::RDS::DBInstance'
     Properties:
-      AllocatedStorage: 5
-      BackupRetentionPeriod: 0
-      DBInstanceClass:
-        !Ref DBServerInstanceType
-      DBName: test
       Engine: MySQL
-      MasterUsername: wordpress
-      MasterUserPassword: wordpress
-      VPCSecurityGroups:
-        - !Ref DatabaseSecurityGroup
+      EngineVersion: 5.7.11
+      AllocatedStorage: 20
+      DBInstanceClass:
+        db.t2.micro
+      MultiAZ: false
+      StorageType: gp2
+      MasterUsername: ParamDbUsername
+      MasterUserPassword: ParamDbPassword
+      # ---- page 2 in RDS
       DBSubnetGroupName:
         !Ref ResourceDBSubnetGroup
-      MultiAZ: true
+      VPCSecurityGroups:
+        - !Ref ResourceDatabaseSecurityGroup
+      PubliclyAccessible: true
+      DBName: test
+      Port: 3306
+      BackupRetentionPeriod: 3
+  ResourcePostgreDatabase:
+    Type: 'AWS::RDS::DBInstance'
+    Properties:
+      Engine: postgres
+      EngineVersion: 9.5.4
+      AllocatedStorage: 20
+      DBInstanceClass:
+        db.t2.micro
+      MultiAZ: false
       StorageType: gp2
+      MasterUsername: ParamDbUsername
+      MasterUserPassword: ParamDbPassword
+      # ---- page 2 in RDS
+      DBSubnetGroupName:
+        !Ref ResourceDBSubnetGroup
+      VPCSecurityGroups:
+        - !Ref ResourceDatabaseSecurityGroup
+      PubliclyAccessible: true
+      DBName: test
+      Port: 5432
+      BackupRetentionPeriod: 3
+Outputs:
+  DBAddress:
+    Description: Database endpoint address
+    Value:
+      Fn::GetAtt:
+      - ResourcePostgreDatabase
+      - Endpoint.Address
+  DBPort:
+    Description: Database endpoint port number
+    Value:
+      Fn::GetAtt:
+      - ResourcePostgreDatabase
+      - Endpoint.Port
+
