@@ -18,6 +18,7 @@
         "kinesis:*",
         "lambda:*",
         "logs:*",
+        "rds:*",
         "route53:*",
         "s3:*",
         "sns:*",
