@@ -183,7 +183,7 @@ Resources:
       GroupDescription:
         'test'
       VpcId:
-        Ref: ResourceCustomVPC
+        !Ref ResourceCustomVPC
       SecurityGroupIngress:
       - IpProtocol: tcp
         FromPort: 3306
@@ -193,8 +193,8 @@ Resources:
     Properties:
       DBSubnetGroupDescription: 'DB subnet group'
       SubnetIds:
-      - Ref: ResourcePublicSubnetA
-      - Ref: ResourcePublicSubnetB
+      - !Ref ResourcePublicSubnetA
+      - !Ref ResourcePublicSubnetB
 #  ResourceMySqlDatabase:
 #    Type: 'AWS::RDS::DBInstance'
 #    Properties:
@@ -226,8 +226,10 @@ Resources:
         db.t2.micro
       MultiAZ: false
       StorageType: gp2
-      MasterUsername: ParamDbUsername
-      MasterUserPassword: ParamDbPassword
+      MasterUsername: 
+        !Ref ParamDbUsername
+      MasterUserPassword: 
+        !Ref ParamDbPassword
       # ---- page 2 in RDS
       DBSubnetGroupName:
         !Ref ResourceDBSubnetGroup
