@@ -177,7 +177,7 @@ Resources:
       RuleAction: allow
       Egress: true
       CidrBlock: '0.0.0.0/0'
-  ResourceDatabaseSecurityGroup:
+  ResourceMySqlDatabaseSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
       GroupDescription:
@@ -185,9 +185,20 @@ Resources:
       VpcId:
         !Ref ResourceCustomVPC
       SecurityGroupIngress:
-      - IpProtocol: tcp
-        FromPort: 3306
-        ToPort: 3306
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+  ResourcePostgresDatabaseSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription:
+        'test'
+      VpcId:
+        !Ref ResourceCustomVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 5432
+          ToPort: 5432
   ResourceDBSubnetGroup:
     Type: 'AWS::RDS::DBSubnetGroup'
     Properties:
@@ -211,7 +222,7 @@ Resources:
 #      DBSubnetGroupName:
 #        !Ref ResourceDBSubnetGroup
 #      VPCSecurityGroups:
-#        - !Ref ResourceDatabaseSecurityGroup
+#        - !Ref ResourceMySqlDatabaseSecurityGroup
 #      PubliclyAccessible: true
 #      DBName: test
 #      Port: 3306
@@ -234,7 +245,7 @@ Resources:
       DBSubnetGroupName:
         !Ref ResourceDBSubnetGroup
       VPCSecurityGroups:
-        - !Ref ResourceDatabaseSecurityGroup
+        - !Ref ResourcePostgresDatabaseSecurityGroup
       PubliclyAccessible: true
       DBName: test
       Port: 5432
