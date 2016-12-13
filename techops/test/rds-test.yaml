@@ -10,12 +10,12 @@ Parameters:
     ConstraintDescription: 'Must be in the range [0-255]'
     MinValue: 0
     MaxValue: 255
-  ParamDbUSername:
+  ParamDbUsername:
     Type: String
     Default: TestUser
   ParamDbPassword:
     Type: String
-    Default: T3stP@ssw0rd
+    Default: testpossward
 Resources:
   ResourceCustomVPC:
     Type: AWS::EC2::VPC
@@ -186,8 +186,9 @@ Resources:
         !Ref ResourceCustomVPC
       SecurityGroupIngress:
         - IpProtocol: tcp
-          FromPort: 3306
-          ToPort: 3306
+          FromPort: '3306'
+          ToPort: '3306'
+          CidrIp: 0.0.0.0/0
   ResourcePostgresDatabaseSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
@@ -197,8 +198,9 @@ Resources:
         !Ref ResourceCustomVPC
       SecurityGroupIngress:
         - IpProtocol: tcp
-          FromPort: 5432
-          ToPort: 5432
+          FromPort: '5432'
+          ToPort: '5432'
+          CidrIp: 0.0.0.0/0
   ResourceDBSubnetGroup:
     Type: 'AWS::RDS::DBSubnetGroup'
     Properties:
@@ -241,7 +243,6 @@ Resources:
         !Ref ParamDbUsername
       MasterUserPassword: 
         !Ref ParamDbPassword
-      # ---- page 2 in RDS
       DBSubnetGroupName:
         !Ref ResourceDBSubnetGroup
       VPCSecurityGroups:
@@ -255,12 +256,12 @@ Outputs:
     Description: Database endpoint address
     Value:
       Fn::GetAtt:
-      - ResourcePostgreDatabase
-      - Endpoint.Address
+        - ResourcePostgreDatabase
+        - Endpoint.Address
   DBPort:
     Description: Database endpoint port number
     Value:
       Fn::GetAtt:
-      - ResourcePostgreDatabase
-      - Endpoint.Port
+        - ResourcePostgreDatabase
+        - Endpoint.Port
 
