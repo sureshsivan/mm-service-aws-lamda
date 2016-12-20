@@ -1,0 +1,19 @@
+Type: 'AWS::RDS::DBInstance'
+Properties:
+ Engine: MySQL
+ EngineVersion: 5.7.11
+ AllocatedStorage: 20
+ DBInstanceClass:
+    db.t2.micro
+ MultiAZ: false
+ StorageType: gp2
+ MasterUsername: ParamDbUsername
+ MasterUserPassword: ParamDbPassword
+ DBSubnetGroupName:
+    Ref: ResourceDBSubnetGroup
+ VPCSecurityGroups:
+    - Ref: ResourceMySqlDatabaseSecurityGroup
+ PubliclyAccessible: true
+ DBName: test
+ Port: 3306
+ BackupRetentionPeriod: 3

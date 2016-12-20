@@ -1,0 +1,21 @@
+Type: 'AWS::RDS::DBInstance'
+Properties:
+Engine: postgres
+EngineVersion: 9.5.4
+AllocatedStorage: 20
+DBInstanceClass:
+  db.t2.micro
+MultiAZ: false
+StorageType: gp2
+MasterUsername: 
+  Ref: ParamDbUsername
+MasterUserPassword: 
+  Ref: ParamDbPassword
+DBSubnetGroupName:
+  Ref: ResourceDBSubnetGroup
+VPCSecurityGroups:
+  - Ref: ResourcePostgresDatabaseSecurityGroup
+PubliclyAccessible: true
+DBName: test
+Port: 5432
+BackupRetentionPeriod: 3
