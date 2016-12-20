@@ -4,5 +4,6 @@ Properties:
     - Key:
         Name
       Value:
-        !Sub 'IGW-10.${ParamVpcClassB}.0.0/16'
-    - $ref: ../../tags/resource-tags.yaml
+        Fn::Sub: 'IGW-10.${ParamVpcClassB}.0.0/16'
+    - $ref: ../../tags/appname-tag.yaml
+    - $ref: ../../tags/appid-tag.yaml

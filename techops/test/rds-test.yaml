@@ -157,57 +157,57 @@ Resources:
   #       !Ref ResourcePublicSubnetB
   #     NetworkAclId:
   #       !Ref ResourcePublicNetworkAcl
-  ResourcePublicNetworkAclIngressAllowAll:
-    Type: 'AWS::EC2::NetworkAclEntry'
-    Properties:
-      NetworkAclId:
-        !Ref ResourcePublicNetworkAcl
-      RuleNumber: 99
-      Protocol: -1
-      RuleAction: allow
-      Egress: false
-      CidrBlock: '0.0.0.0/0'
-  ResourcePublicNetworkAclEgressAllowAll:
-    Type: 'AWS::EC2::NetworkAclEntry'
-    Properties:
-      NetworkAclId:
-        !Ref ResourcePublicNetworkAcl
-      RuleNumber: 99
-      Protocol: -1
-      RuleAction: allow
-      Egress: true
-      CidrBlock: '0.0.0.0/0'
-  ResourceMySqlDatabaseSecurityGroup:
-    Type: 'AWS::EC2::SecurityGroup'
-    Properties:
-      GroupDescription:
-        'test'
-      VpcId:
-        !Ref ResourceCustomVPC
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: '3306'
-          ToPort: '3306'
-          CidrIp: 0.0.0.0/0
-  ResourcePostgresDatabaseSecurityGroup:
-    Type: 'AWS::EC2::SecurityGroup'
-    Properties:
-      GroupDescription:
-        'test'
-      VpcId:
-        !Ref ResourceCustomVPC
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: '5432'
-          ToPort: '5432'
-          CidrIp: 0.0.0.0/0
-  ResourceDBSubnetGroup:
-    Type: 'AWS::RDS::DBSubnetGroup'
-    Properties:
-      DBSubnetGroupDescription: 'DB subnet group'
-      SubnetIds:
-      - !Ref ResourcePublicSubnetA
-      - !Ref ResourcePublicSubnetB
+  # ResourcePublicNetworkAclIngressAllowAll:
+  #   Type: 'AWS::EC2::NetworkAclEntry'
+  #   Properties:
+  #     NetworkAclId:
+  #       !Ref ResourcePublicNetworkAcl
+  #     RuleNumber: 99
+  #     Protocol: -1
+  #     RuleAction: allow
+  #     Egress: false
+  #     CidrBlock: '0.0.0.0/0'
+  # ResourcePublicNetworkAclEgressAllowAll:
+  #   Type: 'AWS::EC2::NetworkAclEntry'
+  #   Properties:
+  #     NetworkAclId:
+  #       !Ref ResourcePublicNetworkAcl
+  #     RuleNumber: 99
+  #     Protocol: -1
+  #     RuleAction: allow
+  #     Egress: true
+  #     CidrBlock: '0.0.0.0/0'
+  # ResourceMySqlDatabaseSecurityGroup:
+  #   Type: 'AWS::EC2::SecurityGroup'
+  #   Properties:
+  #     GroupDescription:
+  #       'test'
+  #     VpcId:
+  #       !Ref ResourceCustomVPC
+  #     SecurityGroupIngress:
+  #       - IpProtocol: tcp
+  #         FromPort: '3306'
+  #         ToPort: '3306'
+  #         CidrIp: 0.0.0.0/0
+  # ResourcePostgresDatabaseSecurityGroup:
+  #   Type: 'AWS::EC2::SecurityGroup'
+  #   Properties:
+  #     GroupDescription:
+  #       'test'
+  #     VpcId:
+  #       !Ref ResourceCustomVPC
+  #     SecurityGroupIngress:
+  #       - IpProtocol: tcp
+  #         FromPort: '5432'
+  #         ToPort: '5432'
+  #         CidrIp: 0.0.0.0/0
+  # ResourceDBSubnetGroup:
+  #   Type: 'AWS::RDS::DBSubnetGroup'
+  #   Properties:
+  #     DBSubnetGroupDescription: 'DB subnet group'
+  #     SubnetIds:
+  #     - !Ref ResourcePublicSubnetA
+  #     - !Ref ResourcePublicSubnetB
 #  ResourceMySqlDatabase:
 #    Type: 'AWS::RDS::DBInstance'
 #    Properties:
@@ -229,28 +229,28 @@ Resources:
 #      DBName: test
 #      Port: 3306
 #      BackupRetentionPeriod: 3
-  ResourcePostgreDatabase:
-    Type: 'AWS::RDS::DBInstance'
-    Properties:
-      Engine: postgres
-      EngineVersion: 9.5.4
-      AllocatedStorage: 20
-      DBInstanceClass:
-        db.t2.micro
-      MultiAZ: false
-      StorageType: gp2
-      MasterUsername: 
-        !Ref ParamDbUsername
-      MasterUserPassword: 
-        !Ref ParamDbPassword
-      DBSubnetGroupName:
-        !Ref ResourceDBSubnetGroup
-      VPCSecurityGroups:
-        - !Ref ResourcePostgresDatabaseSecurityGroup
-      PubliclyAccessible: true
-      DBName: test
-      Port: 5432
-      BackupRetentionPeriod: 3
+  # ResourcePostgreDatabase:
+  #   Type: 'AWS::RDS::DBInstance'
+  #   Properties:
+  #     Engine: postgres
+  #     EngineVersion: 9.5.4
+  #     AllocatedStorage: 20
+  #     DBInstanceClass:
+  #       db.t2.micro
+  #     MultiAZ: false
+  #     StorageType: gp2
+  #     MasterUsername: 
+  #       !Ref ParamDbUsername
+  #     MasterUserPassword: 
+  #       !Ref ParamDbPassword
+  #     DBSubnetGroupName:
+  #       !Ref ResourceDBSubnetGroup
+  #     VPCSecurityGroups:
+  #       - !Ref ResourcePostgresDatabaseSecurityGroup
+  #     PubliclyAccessible: true
+  #     DBName: test
+  #     Port: 5432
+  #     BackupRetentionPeriod: 3
 Outputs:
   DBAddress:
     Description: Database endpoint address

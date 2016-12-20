@@ -1,67 +1,62 @@
-ResourceCustomVPC:
-  $ref: vpc/custom-vpc.yaml
-ResourceInternetGateway:
-  $ref: vpc/internet-gateway/internet-gateway.yaml
-ResourceVPCInternetGatewayAttachment:
-  $ref: vpc/internet-gateway/vpc-ig-attachment.yaml
-ResourcePublicSubnetA:
-  $ref: vpc/subnet/subnet-a.yaml
-ResourcePublicSubnetB:
-  $ref: vpc/subnet/subnet-b.yaml
+# ResourceCustomVPC:
+#   $ref: vpc/custom-vpc.yaml
+# ResourceInternetGateway:
+#   $ref: vpc/internet-gateway/internet-gateway.yaml
+# ResourceVPCInternetGatewayAttachment:
+#   $ref: vpc/internet-gateway/vpc-ig-attachment.yaml
+# ResourcePublicSubnetA:
+#   $ref: vpc/subnet/subnet-a.yaml
+# ResourcePublicSubnetB:
+#   $ref: vpc/subnet/subnet-b.yaml
 ResourceRouteTablePublic:
   $ref: vpc/route-table/route-table-public.yaml
 ResourceRouteTablePrivate:
   $ref: vpc/route-table/route-table-private.yaml
-ResourceRouteTablePublicSubnetA:
-  $ref: vpc/route-table/subnet-a-public-rt-attachment.yaml
-ResourceRouteTablePublicSubnetB:
-  $ref: vpc/route-table/subnet-b-public-rt-attachment.yaml
-ResourceRouteTableInternetGatewayRoute:
-  $ref: vpc/route-table/route-table-ig-route.yaml
-ResourcePublicNetworkAcl:
-  $ref: vpc/network-acl/public-network-acl.yaml
-ResourcePrivateNetworkAcl:
-  $ref: vpc/network-acl/private-network-acl.yaml  
-ResourcePublicNetworkACLSubnetAAssociation:
-  $ref: vpc/network-acl/public-acl-subnet-a-association.yaml  
-ResourcePublicNetworkACLSubnetBAssociation:
-  $ref: vpc/network-acl/public-acl-subnet-b-association.yaml  
-ResourcePublicNetworkAclIngressAllowAll:
-  $ref: vpc/network-acl/public-acl-allow-ingress-all.yaml  
-ResourcePublicNetworkAclEgressAllowAll:
-  $ref: vpc/network-acl/public-acl-allow-egress-all.yaml  
-ResourceMySqlDatabaseSecurityGroup:
-  $ref: vpc/security-group/mysql-open-sg.yaml  
-ResourcePostgresDatabaseSecurityGroup:
-  $ref: vpc/security-group/mysql-open-sg.yaml  
-ResourceDBSubnetGroup:
-  $ref: rds/subnet-group/custom-vpc-public-subnet-group.yaml
-
-
-
-  
-  
-  
-  
-ResourceApiGatewayRestApi:
-  $ref: api-gateway/rest-api/rest-api.yaml
-ResourceApiGatewayDeployment:
-  $ref: api-gateway/deployment/api-deployment.yaml
-ResourceLambdaExecuteIamRole:
-  $ref: iam/role/mm-lambda-exec-role.yaml
-ResourceApiGatewayCustomDomainLambdaFn:
-  $ref: lambda/function/api-gateway-custom-domain.yaml
-ResourceApiGatewayCustomDomain:
-  $ref: custom/api-gateway-custom-domain.yaml
-ResourceApiGatewayBasePathMapping:
-  $ref: api-gateway/base-path-mapping/base-path-mapping.yaml
-ResourceLambdaFunction:
-  $ref: lambda/function/api-lambda-function.yaml
-ResourceApiGatewayLambdaExecPermission:
-  $ref: lambda/permission/mm-lambda-apig-exec-permission.yaml
-ResourceRoute53DnsMapping:
-  $ref: route53/recordset.yaml
-ResourceRoute53DnsMapping:
-  $ref: route53/recordset.yaml
-ResourceRoute53DnsMappingProduction:
-  $ref: route53/recordset.prod.yaml
+# ResourceRouteTablePublicSubnetA:
+#   $ref: vpc/route-table/subnet-a-public-rt-attachment.yaml
+# ResourceRouteTablePublicSubnetB:
+#   $ref: vpc/route-table/subnet-b-public-rt-attachment.yaml
+# ResourceRouteTableInternetGatewayRoute:
+#   $ref: vpc/route-table/route-table-ig-route.yaml
+# ResourcePublicNetworkAcl:
+#   $ref: vpc/network-acl/public-network-acl.yaml
+# ResourcePrivateNetworkAcl:
+#   $ref: vpc/network-acl/private-network-acl.yaml  
+# ResourcePublicNetworkACLSubnetAAssociation:
+#   $ref: vpc/network-acl/public-acl-subnet-a-association.yaml  
+# ResourcePublicNetworkACLSubnetBAssociation:
+#   $ref: vpc/network-acl/public-acl-subnet-b-association.yaml  
+# ResourcePublicNetworkAclIngressAllowAll:
+#   $ref: vpc/network-acl/public-acl-allow-ingress-all.yaml  
+# ResourcePublicNetworkAclEgressAllowAll:
+#   $ref: vpc/network-acl/public-acl-allow-egress-all.yaml  
+# ResourceMySqlDatabaseSecurityGroup:
+#   $ref: vpc/security-group/mysql-open-sg.yaml  
+# ResourcePostgresDatabaseSecurityGroup:
+#   $ref: vpc/security-group/mysql-open-sg.yaml  
+# ResourceDBSubnetGroup:
+#   $ref: rds/subnet-group/custom-vpc-public-subnet-group.yaml
+# ResourcePostgreDatabase:
+#   $ref: rds/postgres/postgres-rds-instance.yaml
+# ResourceApiGatewayRestApi:
+#   $ref: api-gateway/rest-api/rest-api.yaml
+# ResourceApiGatewayDeployment:
+#   $ref: api-gateway/deployment/api-deployment.yaml
+# ResourceLambdaExecuteIamRole:
+#   $ref: iam/role/mm-lambda-exec-role.yaml
+# ResourceApiGatewayCustomDomainLambdaFn:
+#   $ref: lambda/function/api-gateway-custom-domain.yaml
+# ResourceApiGatewayCustomDomain:
+#   $ref: custom/api-gateway-custom-domain.yaml
+# ResourceApiGatewayBasePathMapping:
+#   $ref: api-gateway/base-path-mapping/base-path-mapping.yaml
+# ResourceLambdaFunction:
+#   $ref: lambda/function/api-lambda-function.yaml
+# ResourceApiGatewayLambdaExecPermission:
+#   $ref: lambda/permission/mm-lambda-apig-exec-permission.yaml
+# ResourceRoute53DnsMapping:
+#   $ref: route53/recordset.yaml
+# ResourceRoute53DnsMapping:
+#   $ref: route53/recordset.yaml
+# ResourceRoute53DnsMappingProduction:
+#   $ref: route53/recordset.prod.yaml
