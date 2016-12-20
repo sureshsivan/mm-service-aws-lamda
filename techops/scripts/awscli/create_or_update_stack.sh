@@ -49,12 +49,14 @@ if [ -z "$STACK_ALIVE" ]; then
                 ParameterKey=ParamAppIdentifierSmall,ParameterValue=$APP_ID_LOWERCASE                                               \
                 ParameterKey=ParamRootDomain,ParameterValue=$ROOT_DOMAIN_NAME                                                       \
                 ParameterKey=ParamDeployEnv,ParameterValue=$DEPLOY_ENV                                                              \
+                ParameterKey=ParamDbUsername,ParameterValue=$DB_USERNAME                                                            \
+                ParameterKey=ParamDbPassword,ParameterValue=$DB_PASSWORD                                                            \
                 ParameterKey=ParamCertificateBodyEncoded,ParameterValue=$ENCODED_AWS_API_G_CUST_DOMAIN_CERT_BODY                    \
                 ParameterKey=ParamCertificateChainEncoded,ParameterValue=$ENCODED_AWS_API_G_CUST_DOMAIN_CERT_CHAIN                  \
                 ParameterKey=ParamCertificatePrivateKeyEncoded,ParameterValue=$ENCODED_AWS_API_G_CUST_DOMAIN_CERT_PRIVATE_KEY       \
                 ParameterKey=ParamAssetBucket,ParameterValue=$AWS_LAMDA_BUCKET_NAME                                                 \
                 ParameterKey=ParamLambdaZipFile,ParameterValue=$LAMBDA_FILE_NAME                                                    \
-                ParameterKey=ParamSwaggerFile,ParameterValue=$SWAGGER_FILE_NAME                                                                       \
+                ParameterKey=ParamSwaggerFile,ParameterValue=$SWAGGER_FILE_NAME                                                     \
             --region $AWS_REGION
     echo "[INFO] STACK CREATION : Kicked Off"
 else
@@ -70,10 +72,14 @@ else
                 ParameterKey=ParamAppIdentifierSmall,ParameterValue=$APP_ID_LOWERCASE                                               \
                 ParameterKey=ParamRootDomain,ParameterValue=$ROOT_DOMAIN_NAME                                                       \
                 ParameterKey=ParamDeployEnv,ParameterValue=$DEPLOY_ENV                                                              \
+                ParameterKey=ParamDbUsername,ParameterValue=$DB_USERNAME                                                            \
+                ParameterKey=ParamDbPassword,ParameterValue=$DB_PASSWORD                                                            \
                 ParameterKey=ParamCertificateBodyEncoded,ParameterValue=$ENCODED_AWS_API_G_CUST_DOMAIN_CERT_BODY                    \
                 ParameterKey=ParamCertificateChainEncoded,ParameterValue=$ENCODED_AWS_API_G_CUST_DOMAIN_CERT_CHAIN                  \
                 ParameterKey=ParamCertificatePrivateKeyEncoded,ParameterValue=$ENCODED_AWS_API_G_CUST_DOMAIN_CERT_PRIVATE_KEY       \
                 ParameterKey=ParamAssetBucket,ParameterValue=$AWS_LAMDA_BUCKET_NAME                                                 \
+                ParameterKey=ParamLambdaZipFile,ParameterValue=$LAMBDA_FILE_NAME                                                    \
+                ParameterKey=ParamSwaggerFile,ParameterValue=$SWAGGER_FILE_NAME                                                     \
             --region $AWS_REGION
     echo "[INFO] STACK UPDATE : Kicked Off"
 fi

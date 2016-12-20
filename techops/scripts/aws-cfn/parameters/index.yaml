@@ -57,8 +57,8 @@ ParamVpcClassB:
 ParamDbUsername:
   Type: String
   Description: username for the DB service
-  Default: 
+  Default: test
 ParamDbPassword:
   Type: String
   Description: password for the DB service
-  Default: 
+  Default: test
