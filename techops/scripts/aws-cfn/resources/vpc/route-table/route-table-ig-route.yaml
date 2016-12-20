@@ -1,7 +1,7 @@
 Type: 'AWS::EC2::Route'
 Properties:
 RouteTableId:
-  !Ref ResourceRouteTablePublic
+  Ref: ResourceRouteTablePublic
 DestinationCidrBlock: '0.0.0.0/0'
 GatewayId:
-  !Ref ResourceInternetGatewa
+  Ref: ResourceInternetGatewa

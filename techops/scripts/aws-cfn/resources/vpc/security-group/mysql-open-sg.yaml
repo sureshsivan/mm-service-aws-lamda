@@ -3,7 +3,7 @@ Properties:
 GroupDescription:
   'mysql'
 VpcId:
-  !Ref ResourceCustomVPC
+  Ref: ResourceCustomVPC
 SecurityGroupIngress:
   - IpProtocol: tcp
     FromPort: '3306'
@@ -14,4 +14,5 @@ Tags:
       Name
     Value:
       'MySql Security Group'
-  - $ref: ../../tags/resource-tags.yaml
+  - $ref: ../../tags/appname-tag.yaml
+  - $ref: ../../tags/appid-tag.yaml  

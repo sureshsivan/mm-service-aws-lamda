@@ -2,9 +2,10 @@ Type: 'AWS::RDS::DBSubnetGroup'
 Properties:
 DBSubnetGroupDescription: 'DB subnet group'
 SubnetIds:
-  - !Ref ResourcePublicSubnetA
-  - !Ref ResourcePublicSubnetB
+  - Ref: ResourcePublicSubnetA
+  - Ref: ResourcePublicSubnetB
 Tags:
     - Key: Name
-      Value: "Custom VPC DB Subnet Group""
-    - $ref: ../../tags/resource-tags.yaml
+      Value: "Custom VPC DB Subnet Group"
+    - $ref: ../../tags/appname-tag.yaml
+    - $ref: ../../tags/appid-tag.yaml     

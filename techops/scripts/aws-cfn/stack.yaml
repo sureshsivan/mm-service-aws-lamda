@@ -1,17 +1,17 @@
 # Root File for non cdn based cloud formation template
 #
-# AWSTemplateFormatVersion: '2010-09-09'
-# Description: "API Infrastructure CF Template"
-# Parameters:
-#   $ref: ./parameters/index.yaml
-# Mappings:
-#   RegionMap:
-#     $ref: ./mappings/region-map.yaml
-#   HostedZones:
-#     $ref: ./mappings/hosted-zones.yaml
-# Conditions:
-#   $ref: ./conditions/is-prod-env.yaml
+AWSTemplateFormatVersion: '2010-09-09'
+Description: "API Infrastructure CF Template"
+Parameters:
+  $ref: ./parameters/index.yaml
+Mappings:
+  RegionMap:
+    $ref: ./mappings/region-map.yaml
+  HostedZones:
+    $ref: ./mappings/hosted-zones.yaml
+Conditions:
+  $ref: ./conditions/is-prod-env.yaml
 Resources:
   $ref: ./resources/index.yaml
-# Outputs:
-#   $ref: ./outputs/index.yaml
+Outputs:
+  $ref: ./outputs/index.yaml

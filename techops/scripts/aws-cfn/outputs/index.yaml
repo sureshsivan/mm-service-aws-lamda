@@ -39,3 +39,15 @@ LambdaConsoleUrl:
       - Ref: AWS::Region
       - "#/functions/"
       - Ref: ResourceLambdaFunction
+DBAddress:
+  Description: Database endpoint address
+  Value:
+    Fn::GetAtt:
+      - ResourcePostgreDatabase
+      - Endpoint.Address
+DBPort:
+  Description: Database endpoint port number
+  Value:
+    Fn::GetAtt:
+      - ResourcePostgreDatabase
+      - Endpoint.Port

@@ -1,6 +1,6 @@
 Type: 'AWS::EC2::SubnetRouteTableAssociation'
 Properties:
   SubnetId:
-    !Ref ResourcePublicSubnetB
+    Ref: ResourcePublicSubnetB
   RouteTableId:
-    !Ref ResourceRouteTablePublic
+    Ref: ResourceRouteTablePublic

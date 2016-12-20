@@ -3,7 +3,7 @@ Properties:
 GroupDescription:
   'postgres'
 VpcId:
-  !Ref ResourceCustomVPC
+  Ref: ResourceCustomVPC
 SecurityGroupIngress:
   - IpProtocol: tcp
     FromPort: '5432'
@@ -14,4 +14,5 @@ Tags:
       Name
     Value:
       'Postgres Security Group'
-  - $ref: ../../tags/resource-tags.yaml
+  - $ref: ../../tags/appname-tag.yaml
+  - $ref: ../../tags/appid-tag.yaml  
