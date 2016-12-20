@@ -48,5 +48,11 @@ var checkEnvConfig = function(){
     if(! process.env.AWS_LAMDA_BUCKET_NAME){
         throw new Error("AWS_LAMDA_BUCKET_NAME env var not set");
     }
+    if(! process.env.DB_USERNAME){
+        throw new Error("DB_USERNAME env var not set");
+    }
+    if(! process.env.DB_PASSWORD){
+        throw new Error("DB_PASSWORD env var not set");
+    }
 };
 checkEnvConfig();

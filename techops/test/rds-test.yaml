@@ -3,7 +3,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: "TEst CF Custom type for API Gateway custom domain"
 Parameters:
-  ParamClassB:
+  ParamVpcClassB:
     Description: 'Class B of VPC (10.XXX.0.0/16)'
     Type: Number
     Default: 0
@@ -17,146 +17,146 @@ Parameters:
     Type: String
     Default: testpossward
 Resources:
-  ResourceCustomVPC:
-    Type: AWS::EC2::VPC
-    Properties:
-      CidrBlock:
-        !Sub '10.${ParamClassB}.0.0/16'
-      EnableDnsSupport: true
-      EnableDnsHostnames: true
-      InstanceTenancy: default
-      Tags:
-        - Key:
-            Name
-          Value:
-            !Sub 'VPC-10.${ParamClassB}.0.0/16'
-  ResourceInternetGateway:
-    Type: 'AWS::EC2::InternetGateway'
-    Properties:
-      Tags:
-        - Key:
-            Name
-          Value:
-            !Sub 'IGW-10.${ParamClassB}.0.0/16'
-  ResourceVPCGatewayAttachment:
-    Type: 'AWS::EC2::VPCGatewayAttachment'
-    Properties:
-      VpcId: !Ref ResourceCustomVPC
-      InternetGatewayId: !Ref ResourceInternetGateway
-  ResourcePublicSubnetA:
-    Type: 'AWS::EC2::Subnet'
-    Properties:
-      AvailabilityZone:
-        !Select [0, !GetAZs '']
-      CidrBlock:
-        !Sub '10.${ParamClassB}.0.0/24'
-      MapPublicIpOnLaunch: true
-      VpcId:
-        !Ref ResourceCustomVPC
-      Tags:
-      - Key:
-          Name
-        Value:
-          !Sub 'SUBNET-10.${ParamClassB}.0.0/24'
-      - Key:
-          Reach
-        Value:
-          public
-  ResourcePublicSubnetB:
-    Type: 'AWS::EC2::Subnet'
-    Properties:
-      AvailabilityZone:
-        !Select [1, !GetAZs '']
-      CidrBlock:
-        !Sub '10.${ParamClassB}.1.0/24'
-      MapPublicIpOnLaunch: true
-      VpcId:
-        !Ref ResourceCustomVPC
-      Tags:
-      - Key:
-          Name
-        Value:
-          !Sub 'SUBNET-10.${ParamClassB}.1.0/24'
-      - Key:
-          Reach
-        Value:
-          public
-  ResourceRouteTablePublic:
-    Type: 'AWS::EC2::RouteTable'
-    Properties:
-      VpcId:
-        !Ref ResourceCustomVPC
-      Tags:
-        - Key:
-            Name
-          Value:
-            CustomPublicRouteTable
-  ResourceRouteTablePrivate:
-    Type: 'AWS::EC2::RouteTable'
-    Properties:
-      VpcId:
-        !Ref ResourceCustomVPC
-      Tags:
-        - Key:
-            Name
-          Value:
-            CustomPrivateRouteTable
-  ResourceRouteTablePublicSubnetA:
-    Type: 'AWS::EC2::SubnetRouteTableAssociation'
-    Properties:
-      SubnetId:
-        !Ref ResourcePublicSubnetA
-      RouteTableId:
-        !Ref ResourceRouteTablePublic
-  ResourceRouteTablePublicSubnetB:
-    Type: 'AWS::EC2::SubnetRouteTableAssociation'
-    Properties:
-      SubnetId:
-        !Ref ResourcePublicSubnetB
-      RouteTableId:
-        !Ref ResourceRouteTablePublic
-  ResourceRouteTableInternetGatewayRoute:
-    Type: 'AWS::EC2::Route'
-    Properties:
-      RouteTableId:
-        !Ref ResourceRouteTablePublic
-      DestinationCidrBlock: '0.0.0.0/0'
-      GatewayId:
-        !Ref ResourceInternetGateway
-  ResourcePublicNetworkAcl:
-    Type: 'AWS::EC2::NetworkAcl'
-    Properties:
-      VpcId:
-        !Ref ResourceCustomVPC
-      Tags:
-      - Key:
-          Name
-        Value:
-          CustomPublicACL
-  ResourcePrivateNetworkAcl:
-    Type: 'AWS::EC2::NetworkAcl'
-    Properties:
-      VpcId:
-        !Ref ResourceCustomVPC
-      Tags:
-      - Key:
-          Name
-        Value:
-          CustomPrivateACL
-  ResourcePublicNetworkACLSubnetAAssociation:
-    Type: 'AWS::EC2::SubnetNetworkAclAssociation'
-    Properties:
-      SubnetId:
-        !Ref ResourcePublicSubnetA
-      NetworkAclId:
-        !Ref ResourcePublicNetworkAcl
-  ResourcePublicNetworkACLSubnetBAssociation:
-    Type: 'AWS::EC2::SubnetNetworkAclAssociation'
-    Properties:
-      SubnetId:
-        !Ref ResourcePublicSubnetB
-      NetworkAclId:
-        !Ref ResourcePublicNetworkAcl
+  # ResourceCustomVPC:
+  #   Type: AWS::EC2::VPC
+  #   Properties:
+  #     CidrBlock:
+  #       !Sub '10.${ParamVpcClassB}.0.0/16'
+  #     EnableDnsSupport: true
+  #     EnableDnsHostnames: true
+  #     InstanceTenancy: default
+  #     Tags:
+  #       - Key:
+  #           Name
+  #         Value:
+  #           !Sub 'VPC-10.${ParamVpcClassB}.0.0/16'
+  # ResourceInternetGateway:
+  #   Type: 'AWS::EC2::InternetGateway'
+  #   Properties:
+  #     Tags:
+  #       - Key:
+  #           Name
+  #         Value:
+  #           !Sub 'IGW-10.${ParamVpcClassB}.0.0/16'
+  # ResourceVPCInternetGatewayAttachment:
+  #   Type: 'AWS::EC2::VPCGatewayAttachment'
+  #   Properties:
+  #     VpcId: !Ref ResourceCustomVPC
+  #     InternetGatewayId: !Ref ResourceInternetGateway
+  # ResourcePublicSubnetA:
+  #   Type: 'AWS::EC2::Subnet'
+  #   Properties:
+  #     AvailabilityZone:
+  #       !Select [0, !GetAZs '']
+  #     CidrBlock:
+  #       !Sub '10.${ParamVpcClassB}.0.0/24'
+  #     MapPublicIpOnLaunch: true
+  #     VpcId:
+  #       !Ref ResourceCustomVPC
+  #     Tags:
+  #     - Key:
+  #         Name
+  #       Value:
+  #         !Sub 'SUBNET-10.${ParamVpcClassB}.0.0/24'
+  #     - Key:
+  #         Reach
+  #       Value:
+  #         public
+  # ResourcePublicSubnetB:
+  #   Type: 'AWS::EC2::Subnet'
+  #   Properties:
+  #     AvailabilityZone:
+  #       !Select [1, !GetAZs '']
+  #     CidrBlock:
+  #       !Sub '10.${ParamVpcClassB}.1.0/24'
+  #     MapPublicIpOnLaunch: true
+  #     VpcId:
+  #       !Ref ResourceCustomVPC
+  #     Tags:
+  #     - Key:
+  #         Name
+  #       Value:
+  #         !Sub 'SUBNET-10.${ParamVpcClassB}.1.0/24'
+  #     - Key:
+  #         Reach
+  #       Value:
+  #         public
+  # ResourceRouteTablePublic:
+  #   Type: 'AWS::EC2::RouteTable'
+  #   Properties:
+  #     VpcId:
+  #       !Ref ResourceCustomVPC
+  #     Tags:
+  #       - Key:
+  #           Name
+  #         Value:
+  #           CustomPublicRouteTable
+  # ResourceRouteTablePrivate:
+  #   Type: 'AWS::EC2::RouteTable'
+  #   Properties:
+  #     VpcId:
+  #       !Ref ResourceCustomVPC
+  #     Tags:
+  #       - Key:
+  #           Name
+  #         Value:
+  #           CustomPrivateRouteTable
+  # ResourceRouteTablePublicSubnetA:
+  #   Type: 'AWS::EC2::SubnetRouteTableAssociation'
+  #   Properties:
+  #     SubnetId:
+  #       !Ref ResourcePublicSubnetA
+  #     RouteTableId:
+  #       !Ref ResourceRouteTablePublic
+  # ResourceRouteTablePublicSubnetB:
+  #   Type: 'AWS::EC2::SubnetRouteTableAssociation'
+  #   Properties:
+  #     SubnetId:
+  #       !Ref ResourcePublicSubnetB
+  #     RouteTableId:
+  #       !Ref ResourceRouteTablePublic
+  # ResourceRouteTableInternetGatewayRoute:
+  #   Type: 'AWS::EC2::Route'
+  #   Properties:
+  #     RouteTableId:
+  #       !Ref ResourceRouteTablePublic
+  #     DestinationCidrBlock: '0.0.0.0/0'
+  #     GatewayId:
+  #       !Ref ResourceInternetGateway
+  # ResourcePublicNetworkAcl:
+  #   Type: 'AWS::EC2::NetworkAcl'
+  #   Properties:
+  #     VpcId:
+  #       !Ref ResourceCustomVPC
+  #     Tags:
+  #     - Key:
+  #         Name
+  #       Value:
+  #         CustomPublicACL
+  # ResourcePrivateNetworkAcl:
+  #   Type: 'AWS::EC2::NetworkAcl'
+  #   Properties:
+  #     VpcId:
+  #       !Ref ResourceCustomVPC
+  #     Tags:
+  #     - Key:
+  #         Name
+  #       Value:
+  #         CustomPrivateACL
+  # ResourcePublicNetworkACLSubnetAAssociation:
+  #   Type: 'AWS::EC2::SubnetNetworkAclAssociation'
+  #   Properties:
+  #     SubnetId:
+  #       !Ref ResourcePublicSubnetA
+  #     NetworkAclId:
+  #       !Ref ResourcePublicNetworkAcl
+  # ResourcePublicNetworkACLSubnetBAssociation:
+  #   Type: 'AWS::EC2::SubnetNetworkAclAssociation'
+  #   Properties:
+  #     SubnetId:
+  #       !Ref ResourcePublicSubnetB
+  #     NetworkAclId:
+  #       !Ref ResourcePublicNetworkAcl
   ResourcePublicNetworkAclIngressAllowAll:
     Type: 'AWS::EC2::NetworkAclEntry'
     Properties:

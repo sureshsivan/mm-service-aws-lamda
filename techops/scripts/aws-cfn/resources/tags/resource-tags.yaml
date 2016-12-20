@@ -3,10 +3,10 @@
   Value:
     Ref: ParamAppFullName
 - Key:
-    AppIdentifierCaps
+    AppIdCaps
   Value:
     Ref: ParamAppIdentifierCaps
 - Key:
-    AppIdentifierSmall
+    AppIdSmall
   Value:
     Ref: ParamAppIdentifierSmall

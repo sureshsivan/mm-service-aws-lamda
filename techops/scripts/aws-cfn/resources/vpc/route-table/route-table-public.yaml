@@ -1,0 +1,10 @@
+Type: 'AWS::EC2::RouteTable'
+Properties:
+VpcId:
+  !Ref ResourceCustomVPC
+Tags:
+  - Key:
+      Name
+    Value:
+      CustomPublicRouteTable
+  - $ref: ../../tags/resource-tags.yaml   
