@@ -71,5 +71,6 @@ var checkEnvConfig = function(){
     console.log("Using ENV Variable :: DB_USERNAME :: ", process.env.DB_USERNAME);
     console.log("###################################################################################");
     console.log("###################################################################################");
+    
 };
 checkEnvConfig();

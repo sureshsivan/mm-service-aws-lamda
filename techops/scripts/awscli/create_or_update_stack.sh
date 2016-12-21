@@ -44,17 +44,17 @@ SWAGGER_FILE_NAME="$(aws s3 ls s3://"$AWS_LAMDA_BUCKET_NAME" | grep -o "swagger2
 # check whether LAMBDA_FILE_NAME and SWAGGER_FILE_NAME has proper value and return a non zero exit code if not
 # no need to trigger the build.
 if [ -z "LAMBDA_FILE_NAME" ]; then
-    echo "Error locating lambda file in bucket:$AWS_LAMDA_BUCKET_NAME"
+    echo "[ERROR] Error locating lambda file in bucket:$AWS_LAMDA_BUCKET_NAME"
     exit 51
 else
-    echo "Using Lambda file : $LAMBDA_FILE_NAME"
+    echo "[INFO] Using Lambda file : $LAMBDA_FILE_NAME"
 fi
 
 if [ -z "SWAGGER_FILE_NAME" ]; then
-    echo "Error locating swagger2 file in bucket:$AWS_LAMDA_BUCKET_NAME"
+    echo "[ERROR] rror locating swagger2 file in bucket:$AWS_LAMDA_BUCKET_NAME"
     exit 61
 else
-    echo "Using Lambda file : $SWAGGER_FILE_NAME"
+    echo "[INFO] Using swagger2 file : $SWAGGER_FILE_NAME"
 fi
 
 if [ -z "$STACK_ALIVE" ]; then
