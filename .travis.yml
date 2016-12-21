@@ -14,13 +14,16 @@ env: |
     AWS_DEFAULT_REGION="us-east-1"
     AWS_REGION="us-east-1"
     CXX="g++-4.8"
-  
+
+# - this one is needed if we have to use any natine compilation for node modules -w arn by travis build
+#  
 # addons:
 #   apt:
 #     sources:
 #       - ubuntu-toolchain-r-test
 #     packages:
 #       - g++-4.
+#
 
 script:
   npm run build
