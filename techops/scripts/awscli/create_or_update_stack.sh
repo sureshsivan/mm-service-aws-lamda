@@ -44,7 +44,7 @@ if [ -z "$STACK_ALIVE" ]; then
             --capabilities CAPABILITY_IAM                                                                                           \
             --parameters                                                                                                            \
                 ParameterKey=ParamAppFullName,ParameterValue=$APP_FULL_NAME                                                         \
-                ParameterKey=ParamAppDescription,ParameterValue=$APP_DESCRIPTION                                                    \
+                ParameterKey=ParamAppDescription,ParameterValue='$APP_DESCRIPTION'                                                    \
                 ParameterKey=ParamAppIdentifierCaps,ParameterValue=$APP_ID_UPPERCASE                                                \
                 ParameterKey=ParamAppIdentifierSmall,ParameterValue=$APP_ID_LOWERCASE                                               \
                 ParameterKey=ParamRootDomain,ParameterValue=$ROOT_DOMAIN_NAME                                                       \
