@@ -9,17 +9,23 @@ Properties:
       Action: sts:AssumeRole
   Path: "/"
   Policies:
-  - PolicyName: root
-    PolicyDocument:
-      Version: '2012-10-17'
-      Statement:
-      - Effect: Allow
-        Action:
-        - logs:CreateLogGroup
-        - logs:CreateLogStream
-        - logs:PutLogEvents
-        Resource: arn:aws:logs:*:*:*
-      - Effect: Allow
-        Action:
-        - apigateway:*
-        Resource: arn:aws:apigateway:*:*:*
+    - PolicyName: Lambda Exec Role policy with VPC access
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: arn:aws:logs:*:*:*
+          - Effect: Allow
+            Action:
+              - apigateway:*
+            Resource: arn:aws:apigateway:*:*:*
+          - Effect: Allow
+            Action:
+              - ec2:CreateNetworkInterface
+              - ec2:DescribeNetworkInterfaces
+              - ec2:DeleteNetworkInterface
+            Resource: arn:aws:ec2:*:*:*
