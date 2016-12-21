@@ -5,10 +5,10 @@ node_js:
   - "5.11"
 
 env: |
-  - APP_FULL_NAME='Money1_Manager1_API'
-    APP_DESCRIPTION='Money2_Manager2_REST API - Powered by AWS Lambda and RDS'
-    APP_ID_UPPERCASE='MMAPI'
-    APP_ID_LOWERCASE='mmapi'
+  - APP_FULL_NAME="Money1_Manager1_API"
+    APP_DESCRIPTION="Money2_Manager2_REST_API_-_Powered_by_AWS_Lambda_and_RDS"
+    APP_ID_UPPERCASE="MMAPI"
+    APP_ID_LOWERCASE="mapi"
     ROOT_DOMAIN_NAME="sivashub.com"
     DEPLOY_ENV="dev"
     AWS_DEFAULT_REGION="us-east-1"
