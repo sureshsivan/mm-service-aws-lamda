@@ -27,7 +27,9 @@
     "serverless",
     "api gateway",
     "rest",
-    "api"
+    "api",
+    "nodejs",
+    "express"
   ],
   "author": "suresh.sivanantham@gmail.com",
   "license": "ISC",
