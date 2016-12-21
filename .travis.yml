@@ -4,7 +4,7 @@ language: node_js
 node_js:
   - "5.11"
 
-env: >-
+env: |
   - APP_FULL_NAME="Money Manager API"
     APP_DESCRIPTION="Money Manager REST API - Powered by AWS Lambda and RDS"
     APP_ID_UPPERCASE="MMAPI"
