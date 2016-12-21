@@ -1,6 +1,6 @@
 Type: 'AWS::EC2::SubnetNetworkAclAssociation'
 Properties:
-SubnetId:
-  Ref: ResourcePublicSubnetA
-NetworkAclId:
-  Ref: ResourcePublicNetworkAcl
+  SubnetId:
+    Ref: ResourcePublicSubnetA
+  NetworkAclId:
+    Ref: ResourcePublicNetworkAcl
