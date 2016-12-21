@@ -1,4 +1,13 @@
 #!/usr/bin/env bash
+
+#  Utils
+function error_exit {
+    echo "$1" >&2   ## Send message to stderr. Exclude >&2 if you don't want it that way.
+    exit "${2:-1}"  ## Return a code specified by $2 or 1 by default.
+}
+
+
+
 # check for stack existance
 # TODO : Check based on all status codes
 # TODO : use http://docs.aws.amazon.com/cli/latest/reference/cloudformation/wait/stack-exists.html
@@ -31,10 +40,22 @@ STACK_ALIVE="$("$AWS_CLI" cloudformation list-stacks --stack-status-filter CREAT
 
 LAMBDA_FILE_NAME="$(aws s3 ls s3://"$AWS_LAMDA_BUCKET_NAME" | grep -o "lambda.*.zip")"
 SWAGGER_FILE_NAME="$(aws s3 ls s3://"$AWS_LAMDA_BUCKET_NAME" | grep -o "swagger2.*.json")"
-LAMBDA_FN_NAME=$DEPLOY_ENV-$LAMBDA_FN_BASE_NAME
-echo "Using Bucket : " $AWS_LAMDA_BUCKET_NAME
-echo "Using Lambda File : " $LAMBDA_FILE_NAME
-echo "Using Swagger File : " $SWAGGER_FILE_NAME
+
+# check whether LAMBDA_FILE_NAME and SWAGGER_FILE_NAME has proper value and return a non zero exit code if not
+# no need to trigger the build.
+if [ -z "LAMBDA_FILE_NAME" ]; then
+    echo "Error locating lambda file in bucket:$AWS_LAMDA_BUCKET_NAME"
+    exit 51
+else
+    echo "Using Lambda file : $LAMBDA_FILE_NAME"
+fi
+
+if [ -z "SWAGGER_FILE_NAME" ]; then
+    echo "Error locating swagger2 file in bucket:$AWS_LAMDA_BUCKET_NAME"
+    exit 61
+else
+    echo "Using Lambda file : $SWAGGER_FILE_NAME"
+fi
 
 if [ -z "$STACK_ALIVE" ]; then
     echo "[INFO] ${STACK_NAME} Stack was never created or dead - recreating the complete stack : CREATING NEW STACK" >& 2
