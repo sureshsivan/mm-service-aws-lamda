@@ -30,10 +30,8 @@ ResourcePublicNetworkAclIngressAllowAll:
   $ref: vpc/network-acl/public-acl-allow-ingress-all.yaml  
 ResourcePublicNetworkAclEgressAllowAll:
   $ref: vpc/network-acl/public-acl-allow-egress-all.yaml  
-ResourceMySqlDatabaseSecurityGroup:
-  $ref: vpc/security-group/mysql-open-sg.yaml  
 ResourcePostgresDatabaseSecurityGroup:
-  $ref: vpc/security-group/mysql-open-sg.yaml  
+  $ref: vpc/security-group/postgres-open-sg.yaml  
 ResourceDBSubnetGroup:
   $ref: rds/subnet-group/custom-vpc-public-subnet-group.yaml
 ResourcePostgreDatabase:
