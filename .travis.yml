@@ -5,15 +5,15 @@ node_js:
   - "5.11"
 
 env: >
-  - APP_FULL_NAME=Money Manager API
-  - APP_DESCRIPTION=Money Manager REST API - Powered by AWS Lambda and RDS
-  - APP_ID_UPPERCASE=MMAPI
-  - APP_ID_LOWERCASE=mmapi
-  - ROOT_DOMAIN_NAME=sivashub.com
-  - DEPLOY_ENV=dev
-  - AWS_DEFAULT_REGION=us-east-1
-  - AWS_REGION=us-east-1
-  - CXX=g++-4.8
+  - APP_FULL_NAME="Money Manager API"
+  - APP_DESCRIPTION="Money Manager REST API - Powered by AWS Lambda and RDS"
+  - APP_ID_UPPERCASE="MMAPI"
+  - APP_ID_LOWERCASE="mmapi"
+  - ROOT_DOMAIN_NAME="sivashub.com"
+  - DEPLOY_ENV="dev"
+  - AWS_DEFAULT_REGION="us-east-1"
+  - AWS_REGION="us-east-1"
+  - CXX="g++-4.8"
   
 # addons:
 #   apt:

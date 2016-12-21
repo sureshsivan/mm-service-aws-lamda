@@ -9,7 +9,7 @@ Properties:
       Action: sts:AssumeRole
   Path: "/"
   Policies:
-    - PolicyName: Lambda Exec Role policy with VPC access
+    - PolicyName: Lambda_Exec_Role_policy_with_VPC_access
       PolicyDocument:
         Version: '2012-10-17'
         Statement:
