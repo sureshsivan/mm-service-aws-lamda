@@ -1,9 +1,9 @@
 ParamAppFullName:
   Type: String
-  Description: Full Name of the App - Can have spaces
+  Description: Full Name of the App - Cannot have spaces
 ParamAppDescription:
   Type: String
-  Description: Description of the app - Can have spaces
+  Description: Description of the app - Cannot have spaces
   Default: Serverless API.
 ParamAppIdentifierCaps:
   Type: String

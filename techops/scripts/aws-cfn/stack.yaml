@@ -1,7 +1,7 @@
 # Root File for non cdn based cloud formation template
 #
 AWSTemplateFormatVersion: '2010-09-09'
-Description: "API Infrastructure CF Template"
+Description: "Money Manager REST API Infrastructure CF Template"
 Parameters:
   $ref: ./parameters/index.yaml
 Mappings:
