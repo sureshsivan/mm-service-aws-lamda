@@ -48,5 +48,29 @@ var checkEnvConfig = function(){
     if(! process.env.AWS_LAMDA_BUCKET_NAME){
         throw new Error("AWS_LAMDA_BUCKET_NAME env var not set");
     }
+    if(! process.env.DB_USERNAME){
+        throw new Error("DB_USERNAME env var not set");
+    }
+    if(! process.env.DB_PASSWORD){
+        throw new Error("DB_PASSWORD env var not set");
+    }
+    
+    console.log("###################################################################################");
+    console.log("##### App ENV Variables...");
+    console.log("###################################################################################");
+    console.log("Using ENV Variable :: AWS_CLI :: ", process.env.AWS_CLI);
+    console.log("Using ENV Variable :: AWS_DEFAULT_REGION :: ", process.env.AWS_DEFAULT_REGION);
+    console.log("Using ENV Variable :: AWS_REGION :: ", process.env.AWS_REGION);
+    console.log("Using ENV Variable :: APP_FULL_NAME :: ", process.env.APP_FULL_NAME);
+    console.log("Using ENV Variable :: APP_DESCRIPTION :: ", process.env.APP_DESCRIPTION);
+    console.log("Using ENV Variable :: APP_ID_UPPERCASE :: ", process.env.APP_ID_UPPERCASE);
+    console.log("Using ENV Variable :: APP_ID_LOWERCASE :: ", process.env.APP_ID_LOWERCASE);
+    console.log("Using ENV Variable :: ROOT_DOMAIN_NAME :: ", process.env.ROOT_DOMAIN_NAME);
+    console.log("Using ENV Variable :: DEPLOY_ENV :: ", process.env.DEPLOY_ENV);
+    console.log("Using ENV Variable :: AWS_LAMDA_BUCKET_NAME :: ", process.env.AWS_LAMDA_BUCKET_NAME);
+    console.log("Using ENV Variable :: DB_USERNAME :: ", process.env.DB_USERNAME);
+    console.log("###################################################################################");
+    console.log("###################################################################################");
+    
 };
 checkEnvConfig();

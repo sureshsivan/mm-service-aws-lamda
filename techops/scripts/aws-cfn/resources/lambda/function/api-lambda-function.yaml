@@ -1,5 +1,27 @@
 Type: AWS::Lambda::Function
 Properties:
+  Environment:
+    Variables:
+      ENV: 
+        Ref: ParamDeployEnv
+      DB_HOST: 
+        Fn::GetAtt:
+          - ResourcePostgreDatabase
+          - Endpoint.Address
+      DB_PORT: 
+        Fn::GetAtt:
+          - ResourcePostgreDatabase
+          - Endpoint.Port
+      DB_USERNAME: 
+        Ref: ParamDbUsername
+      DB_PASSWORD: 
+        Ref: ParamDbPassword
+  VpcConfig:
+    SecurityGroupIds:
+      - Ref: ResourcePostgresDatabaseSecurityGroup
+    SubnetIds:
+      - Ref: ResourcePublicSubnetA
+      - Ref: ResourcePublicSubnetB
   Code:
     S3Bucket:
       Ref: ParamAssetBucket

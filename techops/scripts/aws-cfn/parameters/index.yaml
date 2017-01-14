@@ -1,9 +1,9 @@
 ParamAppFullName:
   Type: String
-  Description: Full Name of the App - Can have spaces
+  Description: Full Name of the App - Cannot have spaces
 ParamAppDescription:
   Type: String
-  Description: Description of the app - Can have spaces
+  Description: Description of the app - Cannot have spaces
   Default: Serverless API.
 ParamAppIdentifierCaps:
   Type: String
@@ -47,3 +47,18 @@ ParamSwaggerFile:
   AllowedPattern: ".*\\.json"
   Description: Swagger file which will be used for API Gateway depoloyment - the file should be in S3 bucket specified above.
   Default: swagger2.json
+ParamVpcClassB:
+  Description: 'Class B of VPC (10.XXX.0.0/16)'
+  Type: Number
+  Default: 0
+  ConstraintDescription: 'Must be in the range [0-255]'
+  MinValue: 0
+  MaxValue: 255
+ParamDbUsername:
+  Type: String
+  Description: username for the DB service
+  Default: test
+ParamDbPassword:
+  Type: String
+  Description: password for the DB service
+  Default: test

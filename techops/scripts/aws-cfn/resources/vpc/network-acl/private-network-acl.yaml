@@ -1,0 +1,11 @@
+Type: 'AWS::EC2::NetworkAcl'
+Properties:
+  VpcId:
+    Ref: ResourceCustomVPC
+  Tags:
+    - Key:
+        Name
+      Value:
+        CustomPrivateACL
+    - $ref: ../../tags/appname-tag.yaml
+    - $ref: ../../tags/appid-tag.yaml 

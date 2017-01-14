@@ -1,0 +1,14 @@
+Type: AWS::EC2::VPC
+Properties:
+  CidrBlock: 
+    Fn::Sub: '10.${ParamVpcClassB}.0.0/16'
+  EnableDnsSupport: true
+  EnableDnsHostnames: true
+  InstanceTenancy: default
+  Tags:
+    - Key:
+        Name
+      Value:
+        Fn::Sub: 'VPC-10.${ParamVpcClassB}.0.0/16'
+    - $ref: ../tags/appname-tag.yaml
+    - $ref: ../tags/appid-tag.yaml

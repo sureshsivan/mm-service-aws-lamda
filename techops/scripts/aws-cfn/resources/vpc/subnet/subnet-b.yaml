@@ -1,0 +1,22 @@
+Type: 'AWS::EC2::Subnet'
+Properties:
+  AvailabilityZone:
+    Fn::Select: 
+      - 1
+      - Fn::GetAZs: ''
+  CidrBlock:
+    Fn::Sub: '10.${ParamVpcClassB}.1.0/24'
+  MapPublicIpOnLaunch: true
+  VpcId:
+    Ref: ResourceCustomVPC
+  Tags:
+    - Key:
+        Name
+      Value:
+        Fn::Sub: 'SUBNET-10.${ParamVpcClassB}.1.0/24'
+    - Key:
+        Reach
+      Value:
+        public
+    - $ref: ../../tags/appname-tag.yaml
+    - $ref: ../../tags/appid-tag.yaml    

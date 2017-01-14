@@ -1,3 +1,7 @@
+# access needed for below
+#   - to create log stream - so execution trace will be captured
+#   - to do anything on apigateway
+#   - to create ENIs - as lamda will have VPN linked so it can talk to RDS through that VPC
 Type: AWS::IAM::Role
 Properties:
   AssumeRolePolicyDocument:
@@ -9,17 +13,23 @@ Properties:
       Action: sts:AssumeRole
   Path: "/"
   Policies:
-  - PolicyName: root
-    PolicyDocument:
-      Version: '2012-10-17'
-      Statement:
-      - Effect: Allow
-        Action:
-        - logs:CreateLogGroup
-        - logs:CreateLogStream
-        - logs:PutLogEvents
-        Resource: arn:aws:logs:*:*:*
-      - Effect: Allow
-        Action:
-        - apigateway:*
-        Resource: arn:aws:apigateway:*:*:*
+    - PolicyName: Lambda_Exec_Role_policy_with_VPC_access
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: arn:aws:logs:*:*:*
+          - Effect: Allow
+            Action:
+              - apigateway:*
+            Resource: arn:aws:apigateway:*:*:*
+          - Effect: Allow
+            Action:
+              - ec2:CreateNetworkInterface
+              - ec2:DescribeNetworkInterfaces
+              - ec2:DeleteNetworkInterface
+            Resource: "*"

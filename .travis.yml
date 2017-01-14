@@ -4,13 +4,27 @@ language: node_js
 node_js:
   - "5.11"
 
-env:
-  - APP_FULL_NAME=Money_Manager_API
-  - APP_DESCRIPTION=Money_Manager_REST_API__Powered_by_AWS_Lambda_and_RDS
-  - APP_ID_UPPERCASE=MMAPI
-  - APP_ID_LOWERCASE=mmapi
-  - ROOT_DOMAIN_NAME=sivashub.com
-  - DEPLOY_ENV=dev
+env: |
+  - APP_FULL_NAME="Money_Manager_API"
+    APP_DESCRIPTION="Money_Manager_REST_API_-_Powered_by_AWS_Lambda_and_RDS"
+    APP_ID_UPPERCASE="MMAPI"
+    APP_ID_LOWERCASE="mmapi"
+    ROOT_DOMAIN_NAME="sivashub.com"
+    DEPLOY_ENV="dev"
+    AWS_DEFAULT_REGION="us-east-1"
+    AWS_REGION="us-east-1"
+    CXX="g++-4.8"
+
+# - this one is needed if we have to use any natine compilation for node modules -w arn by travis build
+#  
+# addons:
+#   apt:
+#     sources:
+#       - ubuntu-toolchain-r-test
+#     packages:
+#       - g++-4.
+#
+#
 
 script:
   npm run build

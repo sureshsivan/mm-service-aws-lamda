@@ -1,3 +1,41 @@
+ResourceCustomVPC:
+  $ref: vpc/custom-vpc.yaml
+ResourceInternetGateway:
+  $ref: vpc/internet-gateway/internet-gateway.yaml
+ResourceVPCInternetGatewayAttachment:
+  $ref: vpc/internet-gateway/vpc-ig-attachment.yaml
+ResourcePublicSubnetA:
+  $ref: vpc/subnet/subnet-a.yaml
+ResourcePublicSubnetB:
+  $ref: vpc/subnet/subnet-b.yaml
+ResourceRouteTablePublic:
+  $ref: vpc/route-table/route-table-public.yaml
+ResourceRouteTablePrivate:
+  $ref: vpc/route-table/route-table-private.yaml
+ResourceRouteTablePublicSubnetA:
+  $ref: vpc/route-table/subnet-a-public-rt-attachment.yaml
+ResourceRouteTablePublicSubnetB:
+  $ref: vpc/route-table/subnet-b-public-rt-attachment.yaml
+ResourceRouteTableInternetGatewayRoute:
+  $ref: vpc/route-table/route-table-ig-route.yaml
+ResourcePublicNetworkAcl:
+  $ref: vpc/network-acl/public-network-acl.yaml
+ResourcePrivateNetworkAcl:
+  $ref: vpc/network-acl/private-network-acl.yaml  
+ResourcePublicNetworkACLSubnetAAssociation:
+  $ref: vpc/network-acl/public-acl-subnet-a-association.yaml  
+ResourcePublicNetworkACLSubnetBAssociation:
+  $ref: vpc/network-acl/public-acl-subnet-b-association.yaml  
+ResourcePublicNetworkAclIngressAllowAll:
+  $ref: vpc/network-acl/public-acl-allow-ingress-all.yaml  
+ResourcePublicNetworkAclEgressAllowAll:
+  $ref: vpc/network-acl/public-acl-allow-egress-all.yaml  
+ResourcePostgresDatabaseSecurityGroup:
+  $ref: vpc/security-group/postgres-open-sg.yaml  
+ResourceDBSubnetGroup:
+  $ref: rds/subnet-group/custom-vpc-public-subnet-group.yaml
+ResourcePostgreDatabase:
+  $ref: rds/postgres/postgres-rds-instance.yaml
 ResourceApiGatewayRestApi:
   $ref: api-gateway/rest-api/rest-api.yaml
 ResourceApiGatewayDeployment:
