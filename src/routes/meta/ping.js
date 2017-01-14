@@ -6,9 +6,6 @@ var ping = function(req, res){
     res.send("pong");
 };
 
-router.get('/ping', healthCheckFn);
-router.get('/healthcheck', healthCheckFn);
-router.get('/pulse', healthCheckFn);
-router.get('/heartbeat', healthCheckFn);
+router.get('/', ping);
 
 module.exports = router;

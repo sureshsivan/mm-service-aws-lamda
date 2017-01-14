@@ -10,6 +10,7 @@ app.use(awsServerlessExpressMiddleware.eventContext());
 // map routes with file names and load all router files
 glob.sync('src/routes/**/*.js').forEach(function(router){
     var routeString = '/api/' + path.basename(router, '.js');
+    console.log(routeString);
     app.use(routeString, require(process.cwd() + '/' + router));
 });
 
